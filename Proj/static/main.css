@@ -1,0 +1,28 @@
+#hello_div{
+    padding-top:  10px;
+    padding-bottom:  10px;
+    color: black;
+}
+#welcome_div{
+    font-size: large;
+    padding-top:  20px;
+    padding-bottom:  20px;
+}
+#CPI_span{
+    color: rgb(156, 156, 223);
+}
+
+.input_line{
+    padding-top:20px;
+    padding-bottom:20px;
+}
+.delete_btn{
+    /* background-color: rgb(157, 153, 153); */
+    border-style:solid;
+    border-color: black;
+}
+.edit_btn{
+    /* background-color: rgb(147, 147, 190); */
+    border-style:solid;
+    border-color: black;
+}
