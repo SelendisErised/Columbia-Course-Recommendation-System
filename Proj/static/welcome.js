@@ -14,7 +14,7 @@ $(document).ready(function () {
             data: JSON.stringify(keyword),
             success: function () {
                 console.log("submitted")
-                window.location.href= `../search_page`
+                window.location.href = `../search_page/` + keyword
             },
             error: function(jq,status,message) {
                 alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
