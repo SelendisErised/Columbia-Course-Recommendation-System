@@ -5,7 +5,7 @@ from dbfunction import DatabaseConnection, SearchFunction
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'hx687099'
+database_user_password = ''
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
