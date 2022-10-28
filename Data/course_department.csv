@@ -1,91 +1,91 @@
-Course Prefix,Department Subject,,,,,
-﻿AHIS,Art History,,,,,
-AMCS,Applied Math and Computer Science,,,,,
-AMST,American Studies,,,,,
-ANTH,Anthropology,,,,,
-APAM,Applied Physics and Applied Math,,,,,
-APBM,Applied Physics and Biomedical Engineering,,,,,
-APCH,Applied Physics and Chemical Engineering,,,,,
-APMA,Applied Mathematics,,,,,
-APPH,Applied Physics,,,,,
-ARCH,Architecture,,,,,
-ASCE,Asian Civilizations: East Asian,,,,,
-ASCM,Asian Civilizations: Middle East,,,,,
-ASTR,Astronomy,,,,,
-BIOC,Biology and Chemistry,,,,,
-BIOL,Biology,,,,,
-BIST,Biostatistics,,,,,
-BMCH,Biomedical and Chemical Engineering,,,,,
-BMEB,"Biomedical Engineering, Electrical Engineering, and Biology",,,,,
-BMEE,Biomedical Engineering and Electrical Engineering,,,,,
-BMEN,Biomedical Engineering,,,,,
-BMME,Biomedical Engineering and Mechanical Engineering,,,,,
-BUSI,Business,,,,,
-CBMF,"Computer Science, Biomedical Engineering and Medical Informatics",,,,,
-CEOR,Civil Engineering and Operations Research,,,,,
-CHAP,Chemical Engineering and Applied Physics and Applied Math,,,,,
-CHBM,Chemical Engineering and Biomedical Engineering,,,,,
-CHCB,"Chemistry, Biology and Computer Science",,,,,
-CHEE,Chemical Engineering and Earth and Environmental Engineering,,,,,
-CHEM,Chemistry,,,,,
-CHEN,Chemical Engineering,,,,,
-CHNS,Chinese,,,,,
-CIEE,Civil Engineering and Earth and Environmental Engineering,,,,,
-CIEN,Civil Engineering,,,,,
-CLPS,Comparative Literature and Society and Psychoanalytic Center,,,,,
-CMBS,"Cellular, Molecular, and Biophysical Studies",,,,,
-COCI,Contemporary Civilization,,,,,
-COMS,Computer Science,,,,,
-COSA,"Computer Science, Industrial Engineering and Operations Research, Statistics, and Applied Physics and Applied Mathematics",,,,,
-CSEE,Computer Science and Electrical Engineering,,,,,
-CSEN,Computer Science and English,,,,,
-CSOR,Computer Science and Operations Research,,,,,
-DNCE,Dance,,,,,
-DRAN,"Decision, Risk, and Operations",,,,,
-DROM,"Decision, Risk, and Operations Management",,,,,
-EACH,Earth and Environmental Engineering and Civil Engineering,,,,,
-EAEE,Earth and Environmental Engineering,,,,,
-EAIA,Earth and Environmental Engineering and International and Public Affairs,,,,,
-ECBM,"Electrical Engineering, Computer Science, and Biomedical Engineering",,,,,
-ECIA,Earth and Environmental and Civil Engineering and International and Public Affairs,,,,,
-ECIE,Economics and Industrial Engineering,,,,,
-ECON,Economics,,,,,
-EEBM,Electrical Engineering and Biomedical Engineering,,,,,
-EECS,Electrical Engineering and Computer Science,,,,,
-EEEL,Earth and Environmental Engineering and Electrical Engineering,,,,,
-EEHS,Electrical Engineering and History,,,,,
-EEME,Electrical Engineering and Mechanical Engineering,,,,,
-EEOR,Electrical Engineering and Operations Research,,,,,
-EESC,Earth and Environmental Sciences,,,,,
-EHSC,Environmental Health Sciences,,,,,
-ELEN,Electrical Engineering,,,,,
-ENGI,Engineering,,,,,
-ENGL,English,,,,,
-EMME,Engineering Mechanics and Mechanical Engineering,,,,,
-ENME,Engineering Mechanics,,,,,
-FILM,Film,,,,,
-FINC,Finance,,,,,
-FREN,French,,,,,
-GERM,German,,,,,
-GRAP,Graphics,,,,,
-HIST,History,,,,,
-HSAM,History and Applied Mathematics,,,,,
-HUMA,Humanities,,,,,
-HUNG,Hungarian,,,,,
-IEME,Industrial Engineering and Mechanical Engineering,,,,,
-IEOR,Industrial Engineering and Operations Research,,,,,
-INAF,International Affairs,,,,,
-INTA,"Earth and Environmental Engineering, Civil Engineering, and International and Public Affairs",,,,,
-LING,Linguistics,,,,,
-MATH,Mathematics,,,,,
-MEBM,Mechanical Engineering and Biomedical Engineering,,,,,
-MECE,Mechanical Engineering,,,,,
-MECH,Mechanical Engineering and Chemical Engineering,,,,,
-MECS,Mechanical Engineering and Computer Science,,,,,
-MEEM,Mechanical Engineering and Engineering Mechanics,,,,,
-MEIE,Mechanical Engineering and Industrial Engineering,,,,,
-MSAE,Materials Science and Engineering,,,,,
-MSIE,Management Science and Industrial Engineering and Operations Research,,,,,
-MUSI,Music,,,,,
-ORCS,Operations Research and Computer Science,,,,,
-PHED,Physical Education,,,,,
+Course Prefix,Department Subject
+AHIS,Art History
+AMCS,Applied Math and Computer Science
+AMST,American Studies
+ANTH,Anthropology
+APAM,Applied Physics and Applied Math
+APBM,Applied Physics and Biomedical Engineering
+APCH,Applied Physics and Chemical Engineering
+APMA,Applied Mathematics
+APPH,Applied Physics
+ARCH,Architecture
+ASCE,Asian Civilizations: East Asian
+ASCM,Asian Civilizations: Middle East
+ASTR,Astronomy
+BIOC,Biology and Chemistry
+BIOL,Biology
+BIST,Biostatistics
+BMCH,Biomedical and Chemical Engineering
+BMEB,"Biomedical Engineering, Electrical Engineering, and Biology"
+BMEE,Biomedical Engineering and Electrical Engineering
+BMEN,Biomedical Engineering
+BMME,Biomedical Engineering and Mechanical Engineering
+BUSI,Business
+CBMF,"Computer Science, Biomedical Engineering and Medical Informatics"
+CEOR,Civil Engineering and Operations Research
+CHAP,Chemical Engineering and Applied Physics and Applied Math
+CHBM,Chemical Engineering and Biomedical Engineering
+CHCB,"Chemistry, Biology and Computer Science"
+CHEE,Chemical Engineering and Earth and Environmental Engineering
+CHEM,Chemistry
+CHEN,Chemical Engineering
+CHNS,Chinese
+CIEE,Civil Engineering and Earth and Environmental Engineering
+CIEN,Civil Engineering
+CLPS,Comparative Literature and Society and Psychoanalytic Center
+CMBS,"Cellular, Molecular, and Biophysical Studies"
+COCI,Contemporary Civilization
+COMS,Computer Science
+COSA,"Computer Science, Industrial Engineering and Operations Research, Statistics, and Applied Physics and Applied Mathematics"
+CSEE,Computer Science and Electrical Engineering
+CSEN,Computer Science and English
+CSOR,Computer Science and Operations Research
+DNCE,Dance
+DRAN,"Decision, Risk, and Operations"
+DROM,"Decision, Risk, and Operations Management"
+EACH,Earth and Environmental Engineering and Civil Engineering
+EAEE,Earth and Environmental Engineering
+EAIA,Earth and Environmental Engineering and International and Public Affairs
+ECBM,"Electrical Engineering, Computer Science, and Biomedical Engineering"
+ECIA,Earth and Environmental and Civil Engineering and International and Public Affairs
+ECIE,Economics and Industrial Engineering
+ECON,Economics
+EEBM,Electrical Engineering and Biomedical Engineering
+EECS,Electrical Engineering and Computer Science
+EEEL,Earth and Environmental Engineering and Electrical Engineering
+EEHS,Electrical Engineering and History
+EEME,Electrical Engineering and Mechanical Engineering
+EEOR,Electrical Engineering and Operations Research
+EESC,Earth and Environmental Sciences
+EHSC,Environmental Health Sciences
+ELEN,Electrical Engineering
+ENGI,Engineering
+ENGL,English
+EMME,Engineering Mechanics and Mechanical Engineering
+ENME,Engineering Mechanics
+FILM,Film
+FINC,Finance
+FREN,French
+GERM,German
+GRAP,Graphics
+HIST,History
+HSAM,History and Applied Mathematics
+HUMA,Humanities
+HUNG,Hungarian
+IEME,Industrial Engineering and Mechanical Engineering
+IEOR,Industrial Engineering and Operations Research
+INAF,International Affairs
+INTA,"Earth and Environmental Engineering, Civil Engineering, and International and Public Affairs"
+LING,Linguistics
+MATH,Mathematics
+MEBM,Mechanical Engineering and Biomedical Engineering
+MECE,Mechanical Engineering
+MECH,Mechanical Engineering and Chemical Engineering
+MECS,Mechanical Engineering and Computer Science
+MEEM,Mechanical Engineering and Engineering Mechanics
+MEIE,Mechanical Engineering and Industrial Engineering
+MSAE,Materials Science and Engineering
+MSIE,Management Science and Industrial Engineering and Operations Research
+MUSI,Music
+ORCS,Operations Research and Computer Science
+PHED,Physical Education
