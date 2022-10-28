@@ -5,7 +5,7 @@ from dbfunction import DatabaseConnection, SearchFunction
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = ''
+database_user_password = 'hx687099'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -31,7 +31,7 @@ def search():
 # submitted search keywords
 @app.route('/search_page/<search_key>')
 def search_page(search_key):
-    search_engine = SearchFunction(default_scheme, 'course_info_open_data')
+    search_engine = SearchFunction(default_scheme, 'Course_info')
     sql = search_engine.ambiguous_search(search_key)
     cur.execute(sql)
     query_output = cur.fetchall()

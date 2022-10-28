@@ -26,5 +26,7 @@ class SearchFunction:
         mysql = "select * from {}.{} where Course like '%{}%' or CourseTitle like '%{}%' or CourseSubtitle like '%{}%'".format(self.database_name, self.table_name, string, string, string)
         return mysql
 
+    def qualify_search(self):
+        pass
 
 
