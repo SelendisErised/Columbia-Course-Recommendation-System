@@ -30,12 +30,25 @@ class SearchFunction:
         mysql = "select * from {0}.{1} where Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%'".format(self.database_name, self.table_name, string)
         return mysql
 
-    def qualify_search(sel, qualify_list):
+    def qualify_search(self, qualify_list):
         """"
         input_type: a list contains all unique key we add to make qualifying search
         return_type: a string which is a executable MySQL query
         """
-        pass
+        check = CheckConstraint()
+
+        mysql = "select * from {0}.{1} where ".format(self.database_name, self.table_name) 
+
+        qul_list = []
+        for course in qualify_list:
+            qul_list.append("concat(Course, Term) != '{}'".format(course))
+
+        mysql += ' and '.join(qul_list)
+
+        if not check.check_requirement_fulfillment(qualify_list):
+            mysql += "and substring(Course, 5, 1) = '6'" 
+            
+        return mysql
 
 class CheckConstraint:
     def check_time_overlap(self, time_list):
@@ -47,8 +60,8 @@ class CheckConstraint:
 
         for course_time in time_list:
             assert course_time != ''
-            date, specify_time = course_time.split('@')
-            interval = (specify_time[0:4], specify_time[4:8])
+            date, specific_time = course_time.split('@')
+            interval = (specific_time[0:4], specific_time[4:8])
             for n in range(len(date)):
                 data_dict[date[n]].append(interval)
 
@@ -65,7 +78,6 @@ class CheckConstraint:
                 prev = interval[1]
         
         return True
-    
 
     def check_requirement_fulfillment(self, course_list):
         """
@@ -75,4 +87,14 @@ class CheckConstraint:
         """
         number_of_level6000_course = 0
         number_of_level4000_course = 0
-        pass 
+        
+        for course in course_list:
+            number_of_level4000_course += (course[4] == '4')
+            number_of_level6000_course += (course[4] == '6')
+
+        return False if number_of_level4000_course > 5 or number_of_level6000_course < number_of_level4000_course else True
+        # return number_of_level4000_course, number_of_level6000_course
+
+# if __name__ == "__main__":
+#         course_list1 = ['COMS6111E00120221', 'COMS4111W00120221', 'ELEN6883E00120221', 'ELEN6771E00120231', 'COMS4112W00120221', 'COMS4705W00120221', 'ECBM4040E00120223']
+#         print(SearchFunction('6156_project', 'Course_info').qualify_search(course_list1))
