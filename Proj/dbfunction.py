@@ -79,22 +79,30 @@ class CheckConstraint:
         
         return True
 
-    def check_requirement_fulfillment(self, course_list):
+    def check_ee_requirement_fulfillment(self, course_list):
         """
         input_type: a list contains all courses in format of 'COMS6156E00120223' -> COMS6516E001 Fall 2022
         return_type: Boolean 
         ['COMS6156E00120223', 'COMS4111E00120221']
         """
+        # Rmv duplicate courses
+        course_list = list(set([course_list[i][:12] for i in range(len(course_list))]))
         number_of_level6000_course = 0
         number_of_level4000_course = 0
-        
+        number_of_ee_course = 0
+        check_ee_related = ('ELEN', 'CSEE', 'EECS', 'BLME', 'ECBM', 'EEBM', 'EEME', 'EEOR')
+
         for course in course_list:
             number_of_level4000_course += (course[4] == '4')
             number_of_level6000_course += (course[4] == '6')
+            number_of_ee_course += (course[:4] in check_ee_related)
 
-        return False if number_of_level4000_course > 5 or number_of_level6000_course < number_of_level4000_course else True
+        return False if number_of_level6000_course < 5 or number_of_ee_course < 5 else True
+        # return False if number_of_level4000_course > 5 or number_of_level6000_course < number_of_level4000_course else True
         # return number_of_level4000_course, number_of_level6000_course
 
-# if __name__ == "__main__":
-#         course_list1 = ['COMS6111E00120221', 'COMS4111W00120221', 'ELEN6883E00120221', 'ELEN6771E00120231', 'COMS4112W00120221', 'COMS4705W00120221', 'ECBM4040E00120223']
+
+if __name__ == "__main__":
+    course_list1 = ['COMS6111E00120221', 'COMS4111W00120221', 'ELEN6883E00120221', 'ELEN6883E00120231', 'COMS4112W00120221', 'COMS4705W00120221', 'ECBM4040E00120223']
+    print(CheckConstraint().check_ee_requirement_fulfillment(course_list1))
 #         print(SearchFunction('6156_project', 'Course_info').qualify_search(course_list1))
