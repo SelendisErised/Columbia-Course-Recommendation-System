@@ -5,7 +5,7 @@ $(document).ready(function () {
     $('#search_res').append(
         `
         <div>
-        ${data} result
+        ${data}
         </div>
         `
     )

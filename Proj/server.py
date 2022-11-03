@@ -35,7 +35,8 @@ def search_page(search_key):
     sql = search_engine.ambiguous_search(search_key)
     cur.execute(sql)
     query_output = cur.fetchall()
-    return render_template('search_page.html', data = query_output)
+    json_data = json.dumps([{'Course': course[2], 'Number': course[0], 'Term': course[4], 'Instructor': course[5], 'Time': course[7], 'Location': course[8], 'Tag': course[9]} for course in query_output], indent=4)
+    return render_template('search_page.html', data = json_data)
 
 # add to wish list
 @app.route('/add_wishlist')

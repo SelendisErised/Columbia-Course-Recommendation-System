@@ -35,7 +35,6 @@ class SearchFunction:
         input_type: a list contains all unique key we add to make qualifying search
         return_type: a string which is a executable MySQL query
         """
-        check = CheckConstraint()
 
         mysql = "select * from {0}.{1} where ".format(self.database_name, self.table_name) 
 
@@ -45,8 +44,8 @@ class SearchFunction:
 
         mysql += ' and '.join(qul_list)
 
-        if not check.check_requirement_fulfillment(qualify_list):
-            mysql += "and substring(Course, 5, 1) = '6'" 
+        if not CheckConstraint().check_requirement_fulfillment(qualify_list):
+            mysql += " and substring(Course, 5, 1) = '6'" 
             
         return mysql
 
@@ -59,9 +58,12 @@ class CheckConstraint:
         data_dict = {'1': [], '2': [], '3': [], '4':[], '5':[], '6':[], '7':[]}
 
         for course_time in time_list:
+
             assert course_time != ''
+
             date, specific_time = course_time.split('@')
             interval = (specific_time[0:4], specific_time[4:8])
+            
             for n in range(len(date)):
                 data_dict[date[n]].append(interval)
 
