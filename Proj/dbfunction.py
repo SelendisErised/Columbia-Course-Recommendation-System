@@ -51,17 +51,21 @@ class SearchFunction:
         return mysql
 
 class CheckConstraint:
-    def check_time_overlap(self, time_list):
+    def check_time_overlap(self, uid_time_list):
         """
-        input_type: a list contains all time in format of '12@08001000' -> Monday, Tuesday 8:00 AM to 10:00 PM
-        return_type: Boolean 
+        input_type: a list of tuples in format of (uid, time).
+        uid format: 'COMS6156E00120223' -> COMS6516E001 Fall 2022.
+        time format: '12@08001000' -> Monday, Tuesday 8:00 AM to 10:00 PM
+        return_type: a tuple in format of (if_overlap, data_dict).
+        data_dict format: {'Day': [(start_time, end_time, uid), ...], ...}
         """
-        data_dict = {'1': [], '2': [], '3': [], '4':[], '5':[], '6':[], '7':[]}
+        data_dict = {'1': [], '2': [], '3': [], '4': [], '5': [], '6': [], '7': []}
+        empty_data_dict = {'1': [], '2': [], '3': [], '4': [], '5': [], '6': [], '7': []}
 
-        for course_time in time_list:
+        for uid, course_time in uid_time_list:
             assert course_time != ''
             date, specific_time = course_time.split('@')
-            interval = (specific_time[0:4], specific_time[4:8])
+            interval = (specific_time[0:4], specific_time[4:8], uid)
             for n in range(len(date)):
                 data_dict[date[n]].append(interval)
 
@@ -69,15 +73,15 @@ class CheckConstraint:
             if len(intervals) <= 1:
                 continue
 
-            intervals.sort(key = lambda x: x[0])
+            intervals.sort(key=lambda x: x[0])
 
             prev = '0000'
             for interval in intervals:
                 if interval[0] < prev:
-                    return False
+                    return False, empty_data_dict
                 prev = interval[1]
         
-        return True
+        return True, data_dict
 
     def check_ee_requirement_fulfillment(self, course_list):
         """
@@ -103,6 +107,17 @@ class CheckConstraint:
 
 
 if __name__ == "__main__":
+    # check_ee_requirement_fulfillment test
     course_list1 = ['COMS6111E00120221', 'COMS4111W00120221', 'ELEN6883E00120221', 'ELEN6883E00120231', 'COMS4112W00120221', 'COMS4705W00120221', 'ECBM4040E00120223']
-    print(CheckConstraint().check_ee_requirement_fulfillment(course_list1))
+    # print(CheckConstraint().check_ee_requirement_fulfillment(course_list1))
 #         print(SearchFunction('6156_project', 'Course_info').qualify_search(course_list1))
+
+    # check_time_overlap test
+    # True case (No overlap, sort)
+    uid_course_list1 = [('COMS6111E00120221', '12@08001000'), ('ELEN6885E00120223', '5@08001000'),
+                        ('ELEN6883E00120223', '2@10101230')]
+    print(CheckConstraint().check_time_overlap(uid_course_list1))
+    # False Case (Overlap)
+    uid_course_list2 = [('COMS6111E00120221', '12@08001000'), ('ELEN6885E00120223', '5@08001000'),
+                        ('ELEN6883E00120223', '2@08001000')]
+    print(CheckConstraint().check_time_overlap(uid_course_list2))
