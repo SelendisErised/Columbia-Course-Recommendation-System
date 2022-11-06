@@ -1,3 +1,21 @@
+body {
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("background.png");
+    /* background-position: center center;  */
+    background-repeat: no-repeat;
+    /* background-size: 100% 100%;  */
+    /* background: url('../templates/background.png') no-repeat center center fixed; */
+    background-size: cover; /* for IE9+, Safari 4.1+, Chrome 3.0+, Firefox 3.6+ */
+    -webkit-background-size: cover; /* for Safari 3.0 - 4.0 , Chrome 1.0 - 3.0 */
+    -moz-background-size: cover; /* optional for Firefox 3.6 */ 
+    -o-background-size: cover; /* for Opera 9.5 */
+    margin: 0; /* to remove the default white margin of body */
+    padding: 0; /* to remove the default white margin of body */
+    overflow: hidden;
+}
+.main-content {
+    height: 100vh;
+}
+
 #hello_div{
     padding-top:  10px;
     padding-bottom:  10px;

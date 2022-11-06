@@ -8,11 +8,11 @@
 
 <script  type="text/javascript" src="{{ url_for('static', filename = 'welcome.js') }}"> </script>
 
-<b id="welcome_div">Welcome to <span id="CPI_span">Columbia Course Recommendation</span> <br />
-
+<!-- <b id="welcome_div">Welcome to <span id="CPI_span">Columbia Course Recommendation</span> <br /> -->
+<div class="main-content">
     <br/>
     <form id="search_form">
-        <h1>Search the course</h1>
+        <h1>(Home) Search the course</h1>
         <div class="form-group">
             <input type="text" class="form-control" id="search_keyword" name="search_keyword" placeholder="Try: Cloud Computing / 6156 / Donald" required/>
             <small></small>
@@ -21,8 +21,9 @@
             <button type="submit" class="btn btn-dark">search</button> <span id="loading"></span>
         <!-- <div> -->
     </form>
+<!-- </b> -->
+</div>
 
-</b>
 
 
 

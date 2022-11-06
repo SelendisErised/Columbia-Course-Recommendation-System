@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script  type="text/javascript" src="{{ url_for('static', filename = 'planner_page.js') }}"> </script>
+    
+<script>
+
+    let data = {{data|tojson}}
+
+</script>
+
+<div class="main-content">
+    <br/>
+    <form id="search_form">
+        <h1>Plan the semeter</h1>
+        <div class="form-group">
+            <input type="text" class="form-control" id="search_keyword" name="search_keyword" placeholder="Try: Cloud Computing / 6156 / Donald" required/>
+            <small></small>
+        </div>
+        <!-- <div class="d-flex"> -->
+            <button type="submit" class="btn btn-dark">search</button> <span id="loading"></span>
+        <!-- <div> -->
+    </form>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                Course
+            </div>
+            <div class="col-md-3">
+                Loc&Time
+            </div>
+            <div class="col-md-2">
+                Instructor
+            </div>
+            <div class="col-md-3">
+                Tag
+            </div>
+            <div class="col-md-2">
+                Load
+            </div>
+        </div>
+    </div>
+    <div id="search_res">
+
+    </div>
+
+</div>
+
+{% endblock %}
