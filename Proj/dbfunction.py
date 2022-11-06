@@ -1,5 +1,30 @@
 import pymysql
 
+class Tools:
+    def substring(self,course_id):
+        return course_id[0:8]
+
+    def print_time(self,course_string):
+        course_time = ''
+        zone = ''
+        tinydict = {'1': 'Mon ', '2': 'Tu ', '3': 'Wed ', '4': 'Thu ', '5': 'Fri ', '6': 'Sat ', '7': 'Sun '}
+        i=0
+        while course_string[i] != '@':
+            course_time = course_time + tinydict[course_string[i]]
+            i=i+1
+        sub_time = course_string[len(course_string)-8:len(course_string)]
+        if (int(sub_time[0:2])) < 12:
+            zone1 = 'AM'
+        else:
+            zone1 = 'PM'
+        if (int(sub_time[4:6])) < 12:
+            zone2 = 'AM'
+        else:
+            zone2 = 'PM'
+        course_time = course_time+sub_time[0:2]+':'+sub_time[2:4]+zone1+'-'+sub_time[4:6]+':'+sub_time[6:8]+zone2
+        return course_time
+
+
 class DatabaseConnection:
     def __init__(self, host, database_user_id, database_user_password, default_scheme):
         self.host = host
