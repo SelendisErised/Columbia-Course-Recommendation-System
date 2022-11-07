@@ -5,7 +5,7 @@ from dbfunction import DatabaseConnection, SearchFunction
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'dbuserdbuser'
+database_user_password = 'hx687099'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -41,26 +41,16 @@ def search():
 # submitted search keywords
 @app.route('/search_page/<search_key>')
 def search_page(search_key):
-    search_engine = SearchFunction(default_scheme, 'Course_info')
-    sql = search_engine.ambiguous_search(search_key)
-    cur.execute(sql)
-    query_output = cur.fetchall()
-<<<<<<< HEAD
-    json_data = json.dumps([{'Course': course[2], 'Number': course[0], 'Term': course[4], 'Instructor': course[5], 'Time': course[7], 'Location': course[8], 'Tag': course[9]} for course in query_output], indent=4)
-    return render_template('search_page.html', data = json_data)
-=======
-    json_data = json.dumps([{'Course': course[2], 'Number': course[0], 'Term': course[4], 'Instructor': course[5], 'Time': course[7], 'Location': course[8]} for course in query_output], indent=4)
-    json_out = json.loads(json_data)
+    search_engine = SearchFunction(default_scheme, 'Course_info', cur)
+    json_out = search_engine.ambiguous_search(search_key)
     return render_template('search_page.html', data = json_out)
 
 # submitted planner's search keywords and return qualified search res
 @app.route('/planner_page/<search_key>')
 def planner_search(search_key):
-    search_engine = SearchFunction(default_scheme, 'Course_info')
-    sql = search_engine.ambiguous_search(search_key)
-    cur.execute(sql)
-    query_output = cur.fetchall()
-    return render_template('planner_page.html', data = query_output)
+    search_engine = SearchFunction(default_scheme, 'Course_info', cur)
+    json_out = search_engine.ambiguous_search(search_key)
+    return render_template('planner_page.html', data = json_out)
 
 # redirect to planner
 @app.route('/planner_page')
@@ -71,7 +61,6 @@ def planner_page():
     # query_output = cur.fetchall()
     query_output = [] # null input
     return render_template('planner_page.html', data = query_output)
->>>>>>> my-backup
 
 # add to wish list
 @app.route('/add_wishlist')

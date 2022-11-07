@@ -1,7 +1,6 @@
 
 $(document).ready(function () {
-<<<<<<< HEAD
-    const res  = document.getElementById('search_res');
+    const search_res  = document.getElementById('search_res');
     
     $('#search_res').append(
         `
@@ -10,8 +9,6 @@ $(document).ready(function () {
         </div>
         `
     )
-=======
->>>>>>> my-backup
 
     const form  = document.getElementById('search_form');
     form.addEventListener('submit', (event) => {
