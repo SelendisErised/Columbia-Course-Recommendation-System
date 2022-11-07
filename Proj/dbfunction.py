@@ -48,13 +48,14 @@ class SearchFunction(Tools):
         self.database_name = default_scheme
         self.table_name = table_name
         self.db_cursor = cur
+        self.current_term = '20223'
 
     def ambiguous_search(self, string):
         """
         input_type: a string contain search_key to make ambiguous search
         return_type: a string which is a executable MySQL query
         """
-        mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%') and Term = '20223' ".format(self.database_name, self.table_name, string)
+        mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%') and Term = '{3}' ".format(self.database_name, self.table_name, string, self.current_term)
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[2], 
@@ -79,11 +80,14 @@ class SearchFunction(Tools):
         for course in qualify_list:
             qul_list.append("concat(Course, Term) != '{}'".format(course))
         mysql += ' and '.join(qul_list) if qul_list else ''
+        mysql += " and Term = {}".format(self.current_term)
         self.db_cursor.execute(mysql)
         query_tuple = self.db_cursor.fetchall()
 
         uid_time_list = []
         for registered_course in qualify_list:
+            if registered_course[-5:] != self.current_term:
+                continue
             mysql = "select * from {0}.{1} where concat(Course, Term) = '{2}'".format(self.database_name, self.table_name, registered_course)
             self.db_cursor.execute(mysql)
             course_time = self.db_cursor.fetchall()[0][7]
@@ -101,11 +105,9 @@ class SearchFunction(Tools):
             flag = True
             
             for date in dates:
-                
                 check_course_list = time_dict[date]
                 
                 for check_course in check_course_list:
-
                     if not CheckConstraint().check_time_overlap(start_time, end_time, check_course[0], check_course[1]):
                         flag = False
                     
@@ -194,7 +196,7 @@ class CheckConstraint:
 
 # if __name__ == "__main__":
 #     # check_ee_requirement_fulfillment test
-#     course_list1 = ['COMS6111E00120221', 'ELEN6885E00120223', 'COMS4705WH0120223']
+#     course_list1 = ['COMS6111E00120221', 'ELEN6885E00120223', 'COMS4705WH0120223', 'COMS6156E00120223']
 
 #     host = 'localhost'
 #     database_user_id = 'root'
@@ -207,5 +209,5 @@ class CheckConstraint:
 
 #     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
 #     # print(search_engine.ambiguous_search('6885'))
-#     print(search_engine.qualify_search(course_list1))
-
+#     res = search_engine.qualify_search(course_list1)
+#     print(res, len(res))

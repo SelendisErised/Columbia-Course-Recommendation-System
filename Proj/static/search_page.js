@@ -110,6 +110,12 @@ function display_each_course(course) {
     new_instructor.html(course.Instructor);
     new_row.append(new_instructor);
 
+    //div for tag
+    var new_tag = $("<div></div>");
+    new_tag.addClass("col-md-2");
+    new_tag.html(course.Tag);
+    new_row.append(new_tag);
+
 
     // var delete_button = $("<button></button>");
     // delete_button.addClass("col-md-1 btn delete_btn");
