@@ -2,27 +2,39 @@ import pymysql
 import json
 
 class Tools:
-    def substring(self,course_id):
+    def substring(self, course_id):
         return course_id[0:8]
 
-    def print_time(self,course_string):
+    def print_time(self, course_string):
+        """
+        Interpret abstract time info to readable time info
+        input_type: a string which contains the time info with format like '15@10001200'
+            before '@': 1, 5 represent the dates
+            behind '@' the first 4 digit represents the starting time and the other four represent the ending time, 
+                    all in 24-hour clock
+        return_type: a string which is readable time info
+        """
+
         course_time = ''
-        zone = ''
         tinydict = {'1': 'Mon ', '2': 'Tu ', '3': 'Wed ', '4': 'Thu ', '5': 'Fri ', '6': 'Sat ', '7': 'Sun '}
-        i = 0
-        while course_string[i] != '@':
-            course_time = course_time + tinydict[course_string[i]]
-            i=i+1
-        sub_time = course_string[len(course_string)-8:len(course_string)]
+
+        for date in course_string.split('@')[0]:
+            course_time += tinydict[date] 
+        
+        sub_time = course_string[len(course_string) - 8 : len(course_string)]
+        
         if (int(sub_time[0:2])) < 12:
             zone1 = 'AM'
         else:
             zone1 = 'PM'
+
         if (int(sub_time[4:6])) < 12:
             zone2 = 'AM'
         else:
             zone2 = 'PM'
-        course_time = course_time+sub_time[0:2] + ':' + sub_time[2:4] + zone1 + '-' + sub_time[4:6] + ':' + sub_time[6:8] + zone2
+
+        course_time = course_time + sub_time[0:2] + ':' + sub_time[2:4] + zone1 + '-' + sub_time[4:6] + ':' + sub_time[6:8] + zone2
+
         return course_time
 
 
@@ -53,7 +65,7 @@ class SearchFunction(Tools):
     def ambiguous_search(self, string):
         """
         input_type: a string contain search_key to make ambiguous search
-        return_type: a string which is a executable MySQL query
+        return_type: a json format file which is the returned data
         """
         mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%') and Term = '{3}' ".format(self.database_name, self.table_name, string, self.current_term)
         self.db_cursor.execute(mysql)
@@ -72,7 +84,7 @@ class SearchFunction(Tools):
     def qualify_search(self, qualify_list):
         """"
         input_type: a list contains all unique key we add to make qualifying search
-        return_type: a string which is a executable MySQL query
+        return_type: a json format file which is the returned data
         """
 
         mysql = "select * from {0}.{1} where ".format(self.database_name, self.table_name) 
@@ -105,6 +117,9 @@ class SearchFunction(Tools):
             flag = True
             
             for date in dates:
+                if not flag:
+                    break
+
                 check_course_list = time_dict[date]
                 
                 for check_course in check_course_list:
@@ -115,12 +130,12 @@ class SearchFunction(Tools):
                 course_list.append(course_available)
                 
         json_data = json.dumps([{'Course': course[2], 
-                                'Number': course[0], 
-                                'Term': course[4], 
-                                'Instructor': str.title(course[5]) if course[5] else None, 
-                                'Time': self.print_time(course[7]), 
-                                'Location': course[8], 
-                                'Tag': course[9]} for course in course_list], indent=4)
+                                 'Number': course[0], 
+                                 'Term': course[4], 
+                                 'Instructor': str.title(course[5]) if course[5] else None, 
+                                 'Time': self.print_time(course[7]), 
+                                 'Location': course[8], 
+                                 'Tag': course[9]} for course in course_list], indent=4)
         
         json_out = json.loads(json_data)
     
@@ -129,6 +144,15 @@ class SearchFunction(Tools):
 
 class CheckConstraint:
     def check_time_overlap(self, start_time1, end_time1, start_time2, end_time2):
+        """"
+        Check if two courses overlap in time
+        input_type: 
+            start_time1: a string which is the starting time course1 
+            end_time1: a string which is the ending time course1 
+            start_time2: a string which is the starting time course2
+            end_time2: a string which is the ending time course2
+        return_type: Boolean
+        """
         
         if end_time1 <= start_time2:
             return True
@@ -142,10 +166,10 @@ class CheckConstraint:
     def generate_time_dict(self, uid_time_list):
         """
         input_type: a list of tuples in format of (uid, time).
-        uid format: 'COMS6156E00120223' -> COMS6516E001 Fall 2022.
-        time format: '12@08001000' -> Monday, Tuesday 8:00 AM to 10:00 PM
-        return_type: a tuple in format of (if_overlap, data_dict).
-        data_dict format: {'Day': [(start_time, end_time, uid), ...], ...}
+            uid format: 'COMS6156E00120223' -> COMS6516E001 Fall 2022.
+            time format: '12@08001000' -> Monday, Tuesday 8:00 AM to 10:00 PM
+        return_type: (Boolean, a tuple in format of (if_overlap, data_dict))
+            data_dict format: {'Day': [(start_time, end_time, uid), ...], ...}
         """
         data_dict = {'1': [], '2': [], '3': [], '4': [], '5': [], '6': [], '7': []}
         empty_data_dict = {'1': [], '2': [], '3': [], '4': [], '5': [], '6': [], '7': []}
@@ -173,9 +197,10 @@ class CheckConstraint:
 
     def check_ee_requirement_fulfillment(self, course_list):
         """
+        Check if registered course satisfy the department requirement
         input_type: a list contains all courses in format of 'COMS6156E00120223' -> COMS6516E001 Fall 2022
+            Example input format: ['COMS6156E00120223', 'COMS4111E00120221']
         return_type: Boolean 
-        ['COMS6156E00120223', 'COMS4111E00120221']
         """
         # Rmv duplicate courses
         course_list = list(set([course_list[i][:12] for i in range(len(course_list))]))
