@@ -26,12 +26,19 @@ class User(UserMixin):
         self.username = username
         self.password = password
         self.active = active
+        self.course = []
 
     def get_id(self):
         return self.id
 
     def is_active(self):
         return self.active
+
+    def update_course(self, course_list):
+        self.course.extend(course_list)
+
+    def get_course(self):
+        return self.course
 
 class UsersRepository:
 
@@ -64,27 +71,23 @@ def welcome_page():
 def load_user(user_id):
     return users_repository.get_user(user_id)
 
-@app.route('/register' , methods = ['GET' , 'POST'])
+@app.route('/register', methods = ['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         if username in users_repository.users.keys():
-            return render_template('welcome.html', message = 'Username Exists! Try another one.')
+            return render_template('welcome.html', message = 'Username exists! Try another one.')
         else:
             new_user = User(username , password , users_repository.next_index())
             users_repository.save_user(new_user)
             return render_template('welcome.html', message = 'Register successfully!')
+    elif request.method == 'GET':
+        return render_template('register.html')
     else:
-        return Response('''
-            <form action="" method="post">
-            <p><input type=text name=username placeholder="Enter username">
-            <p><input type=password name=password placeholder="Enter password">
-            <p><input type=submit value=Login>
-            </form>
-        ''')
+        pass
 
-@app.route('/login' , methods=['GET' , 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -98,13 +101,7 @@ def login():
         else:
             return render_template('welcome.html', message = 'Wrong Username or Password!')
     else:
-        return Response('''
-            <form action="" method="post">
-                <p><input type=text name=username>
-                <p><input type=password name=password>
-                <p><input type=submit value=Login>
-            </form>
-        ''')
+        return render_template('login.html')
 
 
 # redirect to search page without search key
