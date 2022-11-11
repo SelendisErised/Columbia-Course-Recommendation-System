@@ -92,7 +92,7 @@ class SearchFunction(Tools):
         for course in qualify_list:
             qul_list.append("concat(Course, Term) != '{}'".format(course))
         mysql += ' and '.join(qul_list) if qul_list else ''
-        mysql += " and Term = {}".format(self.current_term)
+        mysql += " and Term = {}".format(self.current_term) if self.current_term else ''
         self.db_cursor.execute(mysql)
         query_tuple = self.db_cursor.fetchall()
 
@@ -153,15 +153,8 @@ class CheckConstraint:
             end_time2: a string which is the ending time course2
         return_type: Boolean
         """
-        
-        if end_time1 <= start_time2:
-            return True
-        
-        elif end_time2 <= start_time1:
-            return True
-        
-        else:
-            return False
+
+        return True if end_time1 <= start_time2 or end_time2 <= start_time1 else False 
 
     def generate_time_dict(self, uid_time_list):
         """
