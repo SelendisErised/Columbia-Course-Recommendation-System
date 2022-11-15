@@ -16,10 +16,17 @@ Search avaiable courses by keywords and the constraint of registered course, cou
 
 
 ## Team Member
+
 Xin Huang xh2510@columbia.edu
+
 Zhiqing Wang zw2780@columbia.edu
+
 Jinxuan Tang jt3302@columbia.edu
+
 Chenhao Wang cw3355@columbia.edu
+
 Yuxian Chen yc3840@columbia.edu
+
 Yiting Dai yd2674@columbia.edu
+
 Haoran Wang hw2897@columbia.edu
