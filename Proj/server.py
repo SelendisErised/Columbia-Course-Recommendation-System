@@ -9,7 +9,7 @@ from flask_oauth import OAuth
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'hx687099'
+database_user_password = 'dbuserdbuser'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -27,7 +27,8 @@ google = oauth.remote_app('google',
                           base_url='https://www.google.com/accounts/',
                           authorize_url='https://accounts.google.com/o/oauth2/auth',
                           request_token_url=None,
-                          request_token_params={'scope': 'https://www.googleapis.com/auth/userinfo.email',
+                        #   request_token_params={'scope': 'openid profile https://www.googleapis.com/auth/userinfo.email',
+                          request_token_params={'scope': 'openid https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
                                                 'response_type': 'code'},
                           access_token_url='https://accounts.google.com/o/oauth2/token',
                           access_token_method='POST',
@@ -50,7 +51,7 @@ def welcome_page():
     access_token = session.get('access_token')
     if access_token is None:
         return redirect(url_for('login'))
-    return render_template('welcome.html')
+    return render_template('welcome.html', data=session.get('resp_obj'))
 
 @app.route('/login')
 def login():
@@ -62,6 +63,7 @@ def login():
 def authorized(resp):
     access_token = resp['access_token']
     session['access_token'] = access_token, ''
+    session['resp_obj'] = resp
     return redirect(url_for('welcome_page'))
 
 @google.tokengetter
