@@ -62,12 +62,14 @@ class SearchFunction(Tools):
         self.db_cursor = cur
         self.current_term = '20223'
 
-    def ambiguous_search(self, string):
+    def ambiguous_search(self, search_key):
         """
-        input_type: a string contain search_key to make ambiguous search
-        return_type: a json format file which is the returned data
+        input_type: 
+                search_key: a string contain search_key to make ambiguous search
+        return_type: 
+                json_out: a json format file which is the returned data
         """
-        mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%') and Term = '{3}' ".format(self.database_name, self.table_name, string, self.current_term)
+        mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%') and Term = '{3}' ".format(self.database_name, self.table_name, search_key, self.current_term)
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[2], 
@@ -81,13 +83,17 @@ class SearchFunction(Tools):
         
         return json_out
 
-    def qualify_search(self, qualify_list):
+    def qualify_search(self, qualify_list, search_key):
         """"
-        input_type: a list contains all unique key we add to make qualifying search
-        return_type: a json format file which is the returned data
+        input_type: 
+                qualify_list: a list contains all unique key we add to make qualifying search
+                search_key: a string contain search_key to make detailed search
+        return_type: 
+                json_out: a json format file which is the returned data
         """
 
-        mysql = "select * from {0}.{1} where ".format(self.database_name, self.table_name) 
+        # mysql = "select * from {0}.{1} where ".format(self.database_name, self.table_name) 
+        mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%') and ".format(self.database_name, self.table_name, search_key)
         qul_list = []
         for course in qualify_list:
             qul_list.append("concat(Course, Term) != '{}'".format(course))
@@ -211,7 +217,6 @@ class CheckConstraint:
         # return False if number_of_level4000_course > 5 or number_of_level6000_course < number_of_level4000_course else True
         # return number_of_level4000_course, number_of_level6000_course
 
-
 # if __name__ == "__main__":
 #     # check_ee_requirement_fulfillment test
 #     course_list1 = ['COMS6111E00120221', 'ELEN6885E00120223', 'COMS4705WH0120223', 'COMS6156E00120223']
@@ -227,5 +232,5 @@ class CheckConstraint:
 
 #     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
 #     # print(search_engine.ambiguous_search('6885'))
-#     res = search_engine.qualify_search(course_list1)
+#     res = search_engine.qualify_search(course_list1, 'ML')
 #     print(res, len(res))

@@ -1,15 +1,15 @@
 from flask_login import LoginManager , login_required , UserMixin , login_user, current_user
 
 class User(UserMixin):
-    def __init__(self, username, password, id, active=True):
-        self.id = id
+    
+    def __init__(self, username, password, openid):
+        self.id = openid
         self.username = username
         self.password = password
-        self.active = active
         self.course = []
 
     def get_id(self):
-        return self.id
+        return self.openid
 
     def is_active(self):
         return self.active
@@ -28,7 +28,7 @@ class UsersRepository:
         self.identifier = 0
     
     def save_user(self, user):
-        self.users_id_dict.setdefault(user.id, user)
+        self.users_id_dict.setdefault(user.openid, user)
         self.users.setdefault(user.username, user)
     
     def get_user(self, username):
