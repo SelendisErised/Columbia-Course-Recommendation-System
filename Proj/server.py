@@ -9,7 +9,7 @@ from flask_oauth import OAuth
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'dbuserdbuser'
+database_user_password = 'hx687099'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -197,10 +197,11 @@ wish_list = []
 @app.route('/planner_page/<search_key>')
 def planner_search(search_key):
     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
-    # json_out = search_engine.qualify_search(wish_list, search_key)
-    json_out = search_engine.ambiguous_search(search_key)
-
-    return render_template('planner_page.html', data = json_out, wish_list = wish_list)
+    json_out = search_engine.qualify_search(wish_list, search_key)
+    search_engine = SearchFunction(default_scheme, 'Course_info', cur)
+    # query_output = [] # null input
+    wish_list_info = search_engine.course_to_frontend_info(wish_list)
+    return render_template('planner_page.html', data = json_out, wish_list = wish_list_info)
 
 # redirect to planner
 @app.route('/planner_page')
@@ -209,8 +210,10 @@ def planner_page():
     # sql = search_engine.ambiguous_search(search_key)
     # cur.execute(sql)
     # query_output = cur.fetchall()
+    search_engine = SearchFunction(default_scheme, 'Course_info', cur)
+    wish_list_info = search_engine.course_to_frontend_info(wish_list)
     query_output = [] # null input
-    return render_template('planner_page.html', data = query_output, wish_list = wish_list)
+    return render_template('planner_page.html', data = query_output, wish_list = wish_list_info)
 
 # add to wish list
 @app.route('/add_course', methods=['POST','GET'])

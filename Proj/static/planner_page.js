@@ -83,13 +83,13 @@ function display_wish_list() {
 
     $.each(wish_list, function(index, value) {
         
-        // let new_row = display_each_course(value);
-        let new_row = $(`<div>${value}</div>`);
+        let new_row = display_each_course(value);
+        // let new_row = $(`<div>${value}</div>`);
 
         let add_course_button = $("<button></button>");
         add_course_button.addClass("col-md-1 btn remove_course_btn");
-        // add_course_button.prop("id", value.Number);
-        add_course_button.prop("id", value);
+        add_course_button.prop("id", value.Number);
+        // add_course_button.prop("id", value);
         add_course_button.html("Remove");
         new_row.append(add_course_button);
 

@@ -73,7 +73,7 @@ class SearchFunction(Tools):
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[2], 
-                        'Number': course[0], 
+                        'Number': str(course[0]) + str(course[4]), 
                         'Term': course[4], 
                         'Instructor': str.title(course[5]) if course[5] else None, 
                         'Time': self.print_time(course[7]), 
@@ -93,11 +93,11 @@ class SearchFunction(Tools):
         """
 
         # mysql = "select * from {0}.{1} where ".format(self.database_name, self.table_name) 
-        mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%') and ".format(self.database_name, self.table_name, search_key)
+        mysql = "select * from {0}.{1} where (Course like '%{2}%' or CourseTitle like '%{2}%' or CourseSubtitle like '%{2}%' or Instructor1Name like '%{2}%' or Tag like '%{2}%')".format(self.database_name, self.table_name, search_key)
         qul_list = []
         for course in qualify_list:
             qul_list.append("concat(Course, Term) != '{}'".format(course))
-        mysql += ' and '.join(qul_list) if qul_list else ''
+        mysql += ' and ' + ' and '.join(qul_list) if qul_list else ''
         mysql += " and Term = {}".format(self.current_term) if self.current_term else ''
         self.db_cursor.execute(mysql)
         query_tuple = self.db_cursor.fetchall()
@@ -136,7 +136,7 @@ class SearchFunction(Tools):
                 course_list.append(course_available)
                 
         json_data = json.dumps([{'Course': course[2], 
-                                 'Number': course[0], 
+                                 'Number': str(course[0]) + str(course[4]), 
                                  'Term': course[4], 
                                  'Instructor': str.title(course[5]) if course[5] else None, 
                                  'Time': self.print_time(course[7]), 
@@ -146,6 +146,34 @@ class SearchFunction(Tools):
         json_out = json.loads(json_data)
     
         return json_out
+    
+    def course_to_frontend_info(self, course_list):
+        """
+        extract all registered course info for front-end display
+        input_type:
+                course_list: a list contain all course number 
+        return_type:
+                json_out: a json file contains all parsed information
+        """
+        course_info_list = []
+        for course_number in course_list:
+            mysql = "select * from {0}.{1} where course = '{2}' and term = '{3}'".format(self.database_name, self.table_name, course_number[:-5], course_number[-5:])
+            self.db_cursor.execute(mysql)
+            course_info_list.append(self.db_cursor.fetchall()[0])
+        
+        json_data = json.dumps([{'Course': course[2], 
+                                 'Number': str(course[0]) + str(course[4]), 
+                                 'Term': course[4], 
+                                 'Instructor': str.title(course[5]) if course[5] else None, 
+                                 'Time': self.print_time(course[7]), 
+                                 'Location': course[8], 
+                                 'Tag': course[9]} for course in course_info_list], indent=4)
+        
+        json_out = json.loads(json_data)
+    
+        return json_out
+
+
 
 
 class CheckConstraint:
@@ -219,7 +247,7 @@ class CheckConstraint:
 
 # if __name__ == "__main__":
 #     # check_ee_requirement_fulfillment test
-#     course_list1 = ['COMS6111E00120221', 'ELEN6885E00120223', 'COMS4705WH0120223', 'COMS6156E00120223']
+#     course_list1 = ['COMS4705WH0120223', 'COMS4111W00120221']
 
 #     host = 'localhost'
 #     database_user_id = 'root'
@@ -232,5 +260,6 @@ class CheckConstraint:
 
 #     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
 #     # print(search_engine.ambiguous_search('6885'))
-#     res = search_engine.qualify_search(course_list1, 'ML')
-#     print(res, len(res))
+#     # res = search_engine.qualify_search(course_list1, 'ML')
+#     # print(res, len(res))
+#     print(search_engine.course_to_frontend_info(course_list1))
