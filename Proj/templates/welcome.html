@@ -3,7 +3,7 @@
 {% block content %}
 
 <script>
-    
+    let data = {{data|tojson}}
 </script>
 
 <script  type="text/javascript" src="{{ url_for('static', filename = 'welcome.js') }}"> </script>
@@ -14,7 +14,9 @@
 <div class="main-content">
     <br/>
     <form id="search_form">
+        <h1 id="user_email">Welcome! </h1>
         <h1>Search for Courses</h1>
+        
         <div class="form-group">
             <input type="text" class="form-control" id="search_keyword" name="search_keyword" placeholder="Try: Cloud Computing / 6156 / Donald" required/>
             <small></small>

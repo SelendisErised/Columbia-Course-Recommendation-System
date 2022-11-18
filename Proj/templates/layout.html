@@ -10,7 +10,7 @@
   <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>  
   <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+  
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 
@@ -38,8 +38,9 @@
         <a class="nav-link" href="/">About</a>
       </div>
       <div>
-        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('login') }}">Log Out</a>
         <!-- <a href="{{ url_for('authorized') }}">Sign up</a> -->
+        <span id="user_email_nav"></span>
       </div>
     </div>
   </div>

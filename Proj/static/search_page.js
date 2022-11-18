@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    $("#user_email_nav").html(sessionStorage.getItem('user_email'));
     const search_res  = document.getElementById('search_res');
     
     $('#search_res').append(
@@ -33,8 +34,7 @@ $(document).ready(function () {
         // });
     });
 
-    const res  = document.getElementById('search_res');
-    console.log(data[0])
+
     // $('#search_res').append(
     //     `
     //     <div>
