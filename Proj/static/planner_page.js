@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    $("#user_email_nav").html(sessionStorage.getItem('user_email'));
 
     const form  = document.getElementById('search_form');
     form.addEventListener('submit', (event) => {
