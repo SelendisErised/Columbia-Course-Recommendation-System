@@ -33,8 +33,7 @@ $(document).ready(function () {
         // });
     });
 
-    const res  = document.getElementById('search_res');
-    console.log(data[0])
+
     // $('#search_res').append(
     //     `
     //     <div>

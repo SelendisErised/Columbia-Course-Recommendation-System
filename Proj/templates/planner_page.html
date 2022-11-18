@@ -7,13 +7,42 @@
 <script>
 
     let data = {{data|tojson}}
+    let wish_list = {{wish_list|tojson}}
 
 </script>
 
 <div class="main-content">
     <br/>
+    <h1>Plan the semeter</h1>
+    <div id="wish_list">
+
+    </div>
+    <div class="container ">
+        <div class="row pb-2 pt-2">
+            <div class="col-md-4">
+                Course
+            </div>
+            <div class="col-md-3">
+                Loc&Time
+            </div>
+            <div class="col-md-2">
+                Instructor
+            </div>
+            <div class="col-md-2">
+                Tag
+            </div>
+            <div class="col-md-1">
+                Load
+            </div>
+        </div>
+    </div>
+    <div id="wish_list">
+
+    </div>
+
+
     <form id="search_form">
-        <h1>Plan the semeter</h1>
+        
         <div class="form-group">
             <input type="text" class="form-control" id="search_keyword" name="search_keyword" placeholder="Try: Cloud Computing / 6156 / Donald" required/>
             <small></small>
@@ -23,9 +52,9 @@
         <!-- <div> -->
     </form>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
+    <div class="container ">
+        <div class="row pb-2 pt-2">
+            <div class="col-md-4">
                 Course
             </div>
             <div class="col-md-3">
@@ -34,10 +63,10 @@
             <div class="col-md-2">
                 Instructor
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 Tag
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 Load
             </div>
         </div>

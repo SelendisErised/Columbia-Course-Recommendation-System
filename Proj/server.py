@@ -192,12 +192,15 @@ def search_page(search_key):
     json_out = search_engine.ambiguous_search(search_key)
     return render_template('search_page.html', data = json_out)
 
+wish_list = []
 # submitted planner's search keywords and return qualified search res
 @app.route('/planner_page/<search_key>')
 def planner_search(search_key):
     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
+    # json_out = search_engine.qualify_search(wish_list, search_key)
     json_out = search_engine.ambiguous_search(search_key)
-    return render_template('planner_page.html', data = json_out)
+
+    return render_template('planner_page.html', data = json_out, wish_list = wish_list)
 
 # redirect to planner
 @app.route('/planner_page')
@@ -207,13 +210,21 @@ def planner_page():
     # cur.execute(sql)
     # query_output = cur.fetchall()
     query_output = [] # null input
-    return render_template('planner_page.html', data = query_output)
+    return render_template('planner_page.html', data = query_output, wish_list = wish_list)
 
 # add to wish list
-@app.route('/add_wishlist')
-def add_wishlist():
-    json_data = request.get_json() 
-    return render_template('.html')
+@app.route('/add_course', methods=['POST','GET'])
+def add_course():
+    course_number = request.get_json()
+    wish_list.append(course_number)
+    return ('', 204)
+
+# remove from wish list
+@app.route('/remove_course', methods=['POST','GET'])
+def remove_course():
+    course_number = request.get_json()
+    wish_list.remove(course_number)
+    return ('', 204)
 
 if __name__ == '__main__':
     app.run(debug = True)
