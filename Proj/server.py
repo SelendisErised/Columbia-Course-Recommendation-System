@@ -8,8 +8,8 @@ from dbfunction import DatabaseConnection, SearchFunction, EvaluationFunction
 from flask_oauth import OAuth
 
 host = 'localhost'
-database_user_id = 'root'
-database_user_password = 'Cyx980901-'
+database_user_id = 'Jinxuan_Tang'
+database_user_password = 'Yky722104$'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -228,6 +228,31 @@ def remove_course():
     course_number = request.get_json()
     wish_list.remove(course_number)
     return ('', 204)
+
+@app.route('/evaluation_page')
+def evaluation_page_null():
+    # json_data = request.get_json()
+    # TODO search_courses function:
+    # search_res = search_courses(json_data)
+    # search_res.append(json_data + " result" )
+    # return redirect(url_for('search_page.html'))
+    query_output = [] # null input
+    return render_template('evaluation_page.html', data = query_output)
+
+@app.route('/evaluation', methods=['POST','GET'])
+def evaluation():
+    json_data = request.get_json()
+    # TODO search_courses function:
+    # search_res = search_courses(json_data)
+    # search_res.append(json_data + " result" )
+    return redirect(url_for('evaluation_page', search_key = json_data))
+
+# submitted search keywords
+@app.route('/evaluation_page/<search_key>')
+def evaluation_page(search_key):
+    search_engine = EvaluationFunction(default_scheme, cur)
+    json_out = search_engine.evaluation_search(search_key)
+    return render_template('evaluation_page.html', data = json_out)
 
 if __name__ == '__main__':
     app.run(debug = True)

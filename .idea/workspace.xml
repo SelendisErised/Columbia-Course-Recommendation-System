@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33c1cbbb-c0cc-4d47-898c-9460211c4fe8" name="Changes" comment="'Updates requirement check &amp; correct know db error'">
-      <change beforePath="$PROJECT_DIR$/Data/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/Data/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/load_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Data/load_data.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/load_data_evaluation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Data/load_data_evaluation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proj/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proj/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/templates/layout.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +107,8 @@
       <workItem from="1667485872366" duration="3816000" />
       <workItem from="1669926678578" duration="1517000" />
       <workItem from="1669929205366" duration="134000" />
+      <workItem from="1669929431796" duration="4277000" />
+      <workItem from="1669933758012" duration="2190000" />
     </task>
     <task id="LOCAL-00001" summary="'Updates requirement check &amp; correct know db error'">
       <created>1667249223125</created>
@@ -135,8 +138,20 @@
     <MESSAGE value="'Updates requirement check &amp; correct know db error'" />
     <option name="LAST_COMMIT_MESSAGE" value="'Updates requirement check &amp; correct know db error'" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Proj/dbfunction.py</url>
+          <line>83</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Columbia_Course_Recommendation_System$dbfunction.coverage" NAME="dbfunction Coverage Results" MODIFIED="1667490242825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
-    <SUITE FILE_PATH="coverage/server_py$server.coverage" NAME="server Coverage Results" MODIFIED="1669927452006" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
+    <SUITE FILE_PATH="coverage/server_py$server.coverage" NAME="server Coverage Results" MODIFIED="1669935736482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
+    <SUITE FILE_PATH="coverage/server_py$dbfunction.coverage" NAME="dbfunction Coverage Results" MODIFIED="1669931767586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
   </component>
 </project>
