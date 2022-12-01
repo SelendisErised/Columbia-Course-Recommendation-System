@@ -174,6 +174,35 @@ class SearchFunction(Tools):
         return json_out
 
 
+class EvaluationFunction(Tools):
+    def __init__(self, default_scheme, cur):
+        self.database_name = default_scheme
+        self.db_cursor = cur
+        self.current_term = '20223'
+
+    def valuate(self):
+        pass
+
+    def evaluation_search(self, search_key):
+        """
+        input_type:
+                search_key: a string contain search_key to make ambiguous search
+        return_type:
+                json_out: a json format file which is the returned data
+        """
+        mysql = "select * from {0}.{1} where (Course like '%{2}%' or Instructor1Name like '%{2}%')".format(self.database_name, 'course_evaluation', search_key)
+        self.db_cursor.execute(mysql)
+        query_output = self.db_cursor.fetchall()
+        json_out = json.dumps([{'Course': course[0],
+                        'Instructor': str.title(course[1]) if course[1] else None,
+                        'Workload': course[2],
+                        'Accessibility': course[3],
+                        'Delivery': course[4],
+                        'Difficulty': course[5]} for course in query_output])
+
+        json_out = json.loads(json_out)
+
+        return json_out
 
 
 class CheckConstraint:
