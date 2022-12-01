@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 
-COURSE_VALUATE_PATH = './course_valuation.csv'
+COURSE_VALUATE_PATH = './course_evaluation.csv'
 
 
 def main():
