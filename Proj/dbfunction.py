@@ -195,10 +195,10 @@ class EvaluationFunction(Tools):
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[0],
                         'Instructor': str.title(course[1]) if course[1] else None,
-                        'Workload': course[2],
-                        'Accessibility': course[3],
-                        'Delivery': course[4],
-                        'Difficulty': course[5]} for course in query_output])
+                        'Workload': str(format(course[2], '.3f')) + '/5',
+                        'Accessibility': str(format(course[3], '.3f')) + '/5',
+                        'Delivery': str(format(course[4], '.3f')) + '/5',
+                        'Difficulty': str(format(course[5], '.3f')) + '/5'} for course in query_output])
 
         json_out = json.loads(json_out)
 
