@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="33c1cbbb-c0cc-4d47-898c-9460211c4fe8" name="Changes" comment="'Updates requirement check &amp; correct know db error'">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/load_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Data/load_data.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proj/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proj/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/data_all_raw.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/data_all_raw.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +107,7 @@
       <workItem from="1669929205366" duration="134000" />
       <workItem from="1669929431796" duration="4277000" />
       <workItem from="1669933758012" duration="2190000" />
+      <workItem from="1669995962775" duration="638000" />
     </task>
     <task id="LOCAL-00001" summary="'Updates requirement check &amp; correct know db error'">
       <created>1667249223125</created>
