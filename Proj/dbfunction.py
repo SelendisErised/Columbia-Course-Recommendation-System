@@ -178,9 +178,8 @@ class EvaluationFunction(Tools):
     def __init__(self, default_scheme, cur):
         self.database_name = default_scheme
         self.db_cursor = cur
-        self.current_term = '20223'
 
-    def valuate(self):
+    def evaluate(self):
         pass
 
     def evaluation_search(self, search_key):
