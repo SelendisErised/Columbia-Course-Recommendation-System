@@ -12,7 +12,7 @@ def main():
                           'Term', 'NumFixedUnits', 'Time', 'Location', 'Tag'])
 
     df['Course'] = df['Course'].map(lambda string: string[0:8])
-    df.loc[284] = ['ELEN6882', 'Xiaodong Wang']
+    df.loc[284] = ['ELEN6882', 'WANG, XIAODONG']
     df.loc[313] = ['COMS4705', 'BENAJIBA, YASSINE']
     df = df.drop_duplicates()
 
