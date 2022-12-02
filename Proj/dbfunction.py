@@ -77,7 +77,8 @@ class SearchFunction(Tools):
                         'Term': course[4], 
                         'Instructor': str.title(course[5]) if course[5] else None, 
                         'Time': self.print_time(course[7]), 
-                        'Location': course[8]} for course in query_output])
+                        'Location': course[8],
+                        'Tag': course[9]} for course in query_output])
 
         json_out = json.loads(json_out)
         
