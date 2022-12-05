@@ -80,8 +80,8 @@ function show_star(grade){
 
     var path = '../static',
         star_img = path + '/star-on.png',
-        half_img = path + '/star-off.png',
-        no_star_img = path + '/star-half.png',
+        half_img = path + '/star-half.png',
+        no_star_img = path + '/star-off.png',
         html = '';
 
     for(var i=0; i< star; i++){
@@ -113,28 +113,28 @@ function display_each_course(course) {
     new_row.append(new_instructor);
 
     //div for Workload
-    // var new_workload = show_star(course.Workload);
-    // new_workload.addClass("col-md-2");
-    // new_workload.html(show_star(course.Workload));
-    new_row.append(show_star(course.Workload));
+    var new_workload = $("<div></div>");
+    new_workload.addClass("col-md-2");
+    new_workload.html(show_star(course.Workload));
+    new_row.append(new_workload);
 
     //div for Accessibility
     var new_accessibility = $("<div></div>");
     new_accessibility.addClass("col-md-2");
     new_accessibility.html(show_star(course.Accessibility));
-    new_row.append(show_star(course.Accessibility));
+    new_row.append(new_accessibility);
 
     //div for Delivery
     var new_delivery = $("<div></div>");
     new_delivery.addClass("col-md-2");
     new_delivery.html(show_star(course.Delivery));
-    new_row.append(show_star(course.Delivery));
+    new_row.append(new_delivery);
 
     //div for Difficulty
     var new_difficulty = $("<div></div>");
-    new_difficulty.addClass("col-md-2");
+    new_difficulty.addClass("col-md-1.5");
     new_difficulty.html(show_star(course.Difficulty));
-    new_row.append(show_star(course.Difficulty));
+    new_row.append(new_difficulty);
 
 
     // var delete_button = $("<button></button>");
