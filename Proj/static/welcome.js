@@ -9,7 +9,7 @@ $(document).ready(function () {
     sessionStorage.setItem('user_email', info.email)
     $("#user_email_nav").html(sessionStorage.getItem('user_email'));
 
-    const form  = document.getElementById('search_form');
+    const form  = document.getElementById('search_form_welcome');
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         var keyword = form.elements['search_keyword'].value

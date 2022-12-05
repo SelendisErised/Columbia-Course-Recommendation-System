@@ -47,9 +47,14 @@ $(document).ready(function () {
     //     $("#log_list").append(new_row);
     // });
 
+
+
     display_search_res();
 })
 
+function redirect_evaluation(id) {
+    window.location.href = `../evaluation_page/` + id
+}
 
 function display_search_res() {
     $("#search_res").empty();
@@ -58,6 +63,11 @@ function display_search_res() {
         let new_row = display_each_course(value);
         $("#search_res").append(new_row);
         console.log(value)
+    });
+
+    $(".evaluation_btn").click(function() {
+        console.log("eval btn clicked")
+        redirect_evaluation($(this).attr("id"));
     });
 
     // //delete button function
@@ -76,7 +86,7 @@ function display_each_course(course) {
     
     //div for Course number and name
     var new_num_and_course = $("<div></div>");
-    new_num_and_course.addClass("col-md-4");
+    new_num_and_course.addClass("col-md-3");
 
     var new_course_number = $("<div></div>");
     new_course_number.addClass("row");
@@ -116,6 +126,14 @@ function display_each_course(course) {
     new_tag.html(course.Tag);
     new_row.append(new_tag);
 
+    let new_load_btn = $("<button></button>");
+    new_load_btn.addClass("col-md-2 btn evaluation_btn");
+    let id = course.Number.slice(0, 8);
+    id = id.concat(course.Instructor)
+    new_load_btn.attr('id', id);
+    console.log(id);
+    new_load_btn.html("Evaluation");
+    new_row.append(new_load_btn);
 
     // var delete_button = $("<button></button>");
     // delete_button.addClass("col-md-1 btn delete_btn");

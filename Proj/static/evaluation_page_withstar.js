@@ -78,7 +78,7 @@ function show_star(grade){
     if (grade - star > 0.5) half = 1;
     no_star = 5 - star - half;
 
-    var path = '../static',
+    var path = '../static/images',
         star_img = path + '/star-on.png',
         half_img = path + '/star-half.png',
         no_star_img = path + '/star-off.png',

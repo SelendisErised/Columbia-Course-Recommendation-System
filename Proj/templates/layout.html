@@ -24,29 +24,29 @@
     
     <!-- <img src="/Proj/templates/background.png"> -->
     <!-- <bg-image></bg-image> -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
+  <!-- expend function can be fixed with https://shuffle.dev/bootstrap/classes/navbar/navbar-expand-* -->
+  <!-- navbar-light bg-light -->
   <div class="container">
-    <a class="navbar-brand" href="/">LionCourse</a>
+    <a class="navbar-brand pd-0" href="/"><img src='../static/images/web_about--1.png' alt="LionCourse"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav ml-10">
+      <div class="navbar-nav ml-10 ml-auto">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/search_page">Search</a>
         <a class="nav-link" href="/planner_page">Plan Semester</a>
         <a class="nav-link" href="/evaluation_page">Course Evaluation</a>
         <a class="nav-link" href="/">About</a>
+        <!-- <a class="nav-link" href="{{ url_for('login') }}">Log Out</a> -->
+        <a class="nav-link" id="user_email_nav" href="{{ url_for('login') }}"></a>
+
       </div>
-      <div>
-        <a href="{{ url_for('login') }}">Log Out</a>
-        <!-- <a href="{{ url_for('authorized') }}">Sign up</a> -->
-        <span id="user_email_nav"></span>
-      </div>
+
     </div>
   </div>
 </nav>
-
     <div class="container">   
         {% block content %}
         {% endblock %}

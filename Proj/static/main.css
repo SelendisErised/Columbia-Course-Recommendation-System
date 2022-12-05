@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("background.png");
+    background-image: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url("images/background.png");
     /* background-position: center center;  */
     background-repeat: no-repeat;
     /* background-size: 100% 100%;  */
@@ -43,4 +43,56 @@ body {
     /* background-color: rgb(147, 147, 190); */
     border-style:solid;
     border-color: black;
+}
+.navbar{
+    background-color: rgb(255, 255, 255, 0.8)
+}
+
+.nav-link{
+    color:rgb(141, 139, 139);
+    font-size: 20px;
+    font-weight: 600
+}
+.welcome_logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+#search_form_welcome{
+    margin-top: 12%;
+}
+.search_keyword_div{
+    /* background: url(images/web_search--1.png) no-repeat scroll ; */
+    background-color: rgb(255, 255, 255, 0.8);
+    /* padding-top:0px; */
+    /* padding-left:30px; */
+    width: 40%;
+    margin:0 auto;
+    /* height: 10%; */
+    /* margin: 0 auto; */
+    border: none; /* <-- This thing here */
+    border:solid 2px #ccc;
+    border-radius: 20px;
+}
+.search_input{
+    border: none;
+    /* align-items: center; */
+    width: 70%;
+    height: 40px;
+    outline:none
+}
+.search_button{
+    position: relative;
+    margin-left: -5px;
+    margin-right: -10px;
+    width: 20%;
+    height: 40px;
+    margin-top: 0px;
+    /* object-fit: contain; */
+}
+.search_button_img{
+    position: relative;
+    /* width: 100%; */
+    height: 30px;
 }

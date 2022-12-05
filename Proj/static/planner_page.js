@@ -60,7 +60,7 @@ function display_search_res() {
 
         let add_course_button = $("<button></button>");
         add_course_button.addClass("col-md-1 btn add_course_btn");
-        add_course_button.prop("id", value.Number);
+        add_course_button.attr("id", value.Number);
         // console.log("button id(course.Number): "+ course.Number);
         add_course_button.html("Add");
         new_row.append(add_course_button);
@@ -88,7 +88,7 @@ function display_wish_list() {
 
         let add_course_button = $("<button></button>");
         add_course_button.addClass("col-md-1 btn remove_course_btn");
-        add_course_button.prop("id", value.Number);
+        add_course_button.attr("id", value.Number);
         // add_course_button.prop("id", value);
         add_course_button.html("Remove");
         new_row.append(add_course_button);
@@ -188,9 +188,6 @@ function display_each_course(course) {
     new_tag.addClass("col-md-1");
     new_tag.html(course.Tag);
     new_row.append(new_tag);
-
-
-
 
     return new_row;
 }
