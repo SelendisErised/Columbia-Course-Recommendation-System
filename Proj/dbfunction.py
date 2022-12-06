@@ -180,17 +180,37 @@ class EvaluationFunction(Tools):
         self.database_name = default_scheme
         self.db_cursor = cur
 
-    def evaluate(self):
-        pass
+    def evaluate(self, search_key, new_evaluation):
+        course, instructor = search_key[0:8], search_key[8:]
+        mysql = "select * from {0}.{1} where Course like '%{2}%' and Instructor1Name like '%{3}%'".format(
+            self.database_name, 'course_evaluation', course, instructor)
+        self.db_cursor.execute(mysql)
+        course_info = self.db_cursor.fetchall()
+
+        cnt = course_info[0][6]
+        new_course = []
+        f = lambda ori, new: (ori * cnt + new) / (cnt + 1)
+
+        for i in range(4):
+            new_course.append(f(course_info[0][i+2], new_evaluation[i]))
+        new_course.append(cnt + 1)
+
+        mysql = "update {0}.{1} set Workload='{2}', Accessibility='{3}', Delivery='{4}', Difficulty='{5}', Cnt='{6}' where Course like '%{7}%' and Instructor1Name like '%{8}%'".format(
+            self.database_name, 'course_evaluation', new_course[0], new_course[1],
+            new_course[2], new_course[3], new_course[4], course, instructor)
+        self.db_cursor.execute(mysql)
 
     def evaluation_search(self, search_key):
         """
         input_type:
-                search_key: a string contain search_key to make ambiguous search
+                search_key: the search key containing first 8 letter of course id
+                            and the instructor (eg: COMS4111FERGUSON, DONALD F)
         return_type:
                 json_out: a json format file which is the returned data
         """
-        mysql = "select * from {0}.{1} where (Course like '%{2}%' or Instructor1Name like '%{2}%')".format(self.database_name, 'course_evaluation', search_key)
+        course, instructor = search_key[0:8], search_key[8:]
+        mysql = "select * from {0}.{1} where Course like '%{2}%' and Instructor1Name like '%{3}%'".format(
+            self.database_name, 'course_evaluation', course, instructor)
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[0],
@@ -274,18 +294,21 @@ class CheckConstraint:
         # return False if number_of_level4000_course > 5 or number_of_level6000_course < number_of_level4000_course else True
         # return number_of_level4000_course, number_of_level6000_course
 
-# if __name__ == "__main__":
-#     # check_ee_requirement_fulfillment test
-#     course_list1 = ['COMS4705WH0120223', 'COMS4111W00120221']
+if __name__ == "__main__":
+    course_list = ['COMS4111FERGUSON, DONALD F']
+    evaluation = [3, 4, 4, 3]
 
-#     host = 'localhost'
-#     database_user_id = 'root'
-#     database_user_password = 'hx687099'
-#     default_scheme = '6156_project'
-#     table_name = 'Course_info'
+    host = 'localhost'
+    database_user_id = 'root'
+    database_user_password = 'Cyx980901-'
+    default_scheme = '6156_project'
+    table_name = 'Course_info'
 
-#     db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
-#     cur = db.connection()
+    db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
+    cur = db.connection()
+
+    evaluation_engine = EvaluationFunction(default_scheme, cur)
+    evaluation_engine.evaluate(course_list[0], evaluation)
 
 #     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
 #     # print(search_engine.ambiguous_search('6885'))
