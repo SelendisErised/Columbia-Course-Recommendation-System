@@ -8,13 +8,13 @@ COURSE_VALUATE_PATH = './course_evaluation.csv'
 
 def main():
     df = pd.DataFrame(pd.read_csv('data_all_raw.csv'))
-    df = df.drop(columns=['CourseSubtitle', 'CallNumber',
+    df = df.drop(columns=['CourseTitle', 'CallNumber',
                           'Term', 'NumFixedUnits', 'Time', 'Location', 'Tag'])
 
     df['Course'] = df['Course'].map(lambda string: string[0:8])
     df = df.drop_duplicates()
     df.loc[1] = ['COMS4111', 'INTRODUCTION TO DATABASES', 'FERGUSON, DONALD F']
-    df.loc[284] = ['ELEN6882', 'TOPICS IN SIGNAL PROCESSING', 'WANG, XIAODONG']
+    df.loc[284] = ['ELEN6882', 'TOPICS IN SIGNAL PROCESSI', 'WANG, XIAODONG']
     df = df.drop_duplicates()
     print(df.info())
 
