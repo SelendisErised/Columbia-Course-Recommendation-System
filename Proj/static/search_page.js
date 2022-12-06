@@ -52,8 +52,8 @@ $(document).ready(function () {
     display_search_res();
 })
 
-function redirect_evaluation(id) {
-    window.location.href = `../evaluation_page/` + id
+function redirect_evaluation(id, instructor, name) {
+    window.location.href = `../evaluation_page/` + id + '&' + instructor + '&' + name
 }
 
 function display_search_res() {
@@ -67,7 +67,7 @@ function display_search_res() {
 
     $(".evaluation_btn").click(function() {
         console.log("eval btn clicked")
-        redirect_evaluation($(this).attr("id"));
+        redirect_evaluation($(this).attr("id"), $(this).attr("instructor"), $(this).attr("course_name"));
     });
 
     // //delete button function
@@ -129,9 +129,14 @@ function display_each_course(course) {
     let new_load_btn = $("<button></button>");
     new_load_btn.addClass("col-md-2 btn evaluation_btn");
     let id = course.Number.slice(0, 8);
-    id = id.concat(course.Instructor)
+    let instructor = course.Instructor;
+    let course_name = course.Course;
     new_load_btn.attr('id', id);
+    new_load_btn.attr('instructor', instructor)
+    new_load_btn.attr('course_name', course_name);
     console.log(id);
+    console.log(instructor);
+    console.log(course_name);
     new_load_btn.html("Evaluation");
     new_row.append(new_load_btn);
 
