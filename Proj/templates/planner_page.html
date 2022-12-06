@@ -13,68 +13,43 @@
 
 <div class="main-content">
     <br/>
-    <h1>Plan the semeter</h1><br/>
-    <h2>My Wish List</h2>
-    <div id="wish_list">
+    <div class="mb-5">
+        <h2 class="ml-3">Added</h2>
+        <img src="../static/images/web_search--3.png" id="col_title_img"/>
+        <div id="wish_list">
 
-    </div>
-    <div class="container ">
-        <div class="row pb-2 pt-2">
-            <div class="col-md-4">
-                Course
-            </div>
-            <div class="col-md-3">
-                Loc&Time
-            </div>
-            <div class="col-md-2">
-                Instructor
-            </div>
-            <div class="col-md-2">
-                Tag
-            </div>
-            <div class="col-md-1">
-                Load
-            </div>
         </div>
-    </div>
-    <div id="wish_list">
-
-    </div>
-
-
-    <form id="search_form">
         
-        <div class="form-group">
-            <input type="text" class="form-control" id="search_keyword" name="search_keyword" placeholder="Try: Cloud Computing / 6156 / Donald" required/>
-            <small></small>
+        <div id="wish_list">
+
         </div>
+    </div>
+
+
+    <form id="search_form_search" class="pt-3 mb-5">  
+        <div class="form-group">
+            <div class="search_keyword_div ml-0">
+                <button type="submit" class="btn p-0 search_button"y>
+                    <img class="search_button_img" src="../static/images/web_search--1.png" style="object-fit: contain;"/>
+                </button> <span id="loading"></span>
+                <input class="search_input" id = "search_keyword" type="text" name="search_keyword" placeholder=" Search for courses" required/>
+            </div>
+
+            <!-- <input type="text" class="form-control search_keyword" name="search_keyword" placeholder=" Try: Cloud Computing / 6156 / Donald" required/> -->
+        </div>
+        
         <!-- <div class="d-flex"> -->
-            <button type="submit" class="btn btn-dark">search</button> <span id="loading"></span>
+            <!-- <button type="submit" class="btn btn-dark">Search</button> <span id="loading"></span> -->
         <!-- <div> -->
     </form>
 
-    <h2>Search Result </h2><br/>
-    <div class="container ">
-        <div class="row pb-2 pt-2">
-            <div class="col-md-4">
-                Course
-            </div>
-            <div class="col-md-3">
-                Loc&Time
-            </div>
-            <div class="col-md-2">
-                Instructor
-            </div>
-            <div class="col-md-2">
-                Tag
-            </div>
-            <div class="col-md-1">
-                Load
-            </div>
-        </div>
-    </div>
-    <div id="search_res">
 
+    <div class="mb-5">
+        <h2 class="ml-3">Available</h2>
+        <img src="../static/images/web_search--3.png" id="col_title_img"/>
+        <div id="search_res">
+
+        </div>
     </div>
 
 </div>

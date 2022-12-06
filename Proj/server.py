@@ -9,7 +9,7 @@ from flask_oauth import OAuth
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'Cyx980901-'
+database_user_password = 'dbuserdbuser'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -253,6 +253,13 @@ def evaluation_page(search_key):
     search_engine = EvaluationFunction(default_scheme, cur)
     json_out = search_engine.evaluation_search(search_key)
     return render_template('evaluation_page.html', data = json_out)
+
+@app.route('/about_page')
+def about_page():
+    access_token = session.get('access_token')
+    if access_token is None:
+        return redirect(url_for('login'))
+    return render_template('about.html', data=session.get('resp_obj'))
 
 if __name__ == '__main__':
     app.run(debug = True)

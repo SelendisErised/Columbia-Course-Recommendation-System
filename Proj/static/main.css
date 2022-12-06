@@ -106,7 +106,9 @@ body {
     width: 100%;
 }
 .row_search_res{
-    font-family: DejaVu Sans Mono, monospace
+    /* font-family: Noto Sans, sans-serif; */
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    /* font-family: American Typewriter, serif; */
     margin-right: -2%;
 
 }
@@ -117,9 +119,9 @@ body {
     margin-left: -3%;
 }
 .div_new_tag{
-    margin-left:9%;
+    margin-left:10%;
 }
-.evaluation_btn{
+.evaluation_btn {
     font-size: small;
     margin-right: 2%;
     height: 40px;
@@ -128,3 +130,21 @@ body {
     border: solid 2px #ccc;
     border-radius: 10px;
 }
+.add_course_btn {
+    font-size: small;
+    margin-left: 0;
+    height: 40px;
+    background-color: rgb(255, 255, 255, 0.6);
+    border: none; /* <-- This thing here */
+    border: solid 2px #ccc;
+    border-radius: 10px;
+}
+.remove_course_btn {
+    font-size: small;
+    height: 40px;
+    background-color: rgb(255, 255, 255, 0.6);
+    border: none; /* <-- This thing here */
+    border: solid 2px #ccc;
+    border-radius: 10px;
+}
+
