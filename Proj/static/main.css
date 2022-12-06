@@ -62,13 +62,18 @@ body {
 #search_form_welcome{
     margin-top: 12%;
 }
+#search_form_search{
+    /* margin-top: 12%; */
+    margin-left:0;
+    padding-left: 0;
+}
 .search_keyword_div{
     /* background: url(images/web_search--1.png) no-repeat scroll ; */
     background-color: rgb(255, 255, 255, 0.8);
     /* padding-top:0px; */
     /* padding-left:30px; */
     width: 40%;
-    margin:0 auto;
+    /* margin:0 auto; */
     /* height: 10%; */
     /* margin: 0 auto; */
     border: none; /* <-- This thing here */
@@ -76,6 +81,7 @@ body {
     border-radius: 20px;
 }
 .search_input{
+    background-color: rgb(255, 255, 255, 0.8);
     border: none;
     /* align-items: center; */
     width: 70%;
@@ -95,4 +101,30 @@ body {
     position: relative;
     /* width: 100%; */
     height: 30px;
+}
+#col_title_img{
+    width: 100%;
+}
+.row_search_res{
+    font-family: DejaVu Sans Mono, monospace
+    margin-right: -2%;
+
+}
+.div_num_and_course{
+    margin-left: 1%;
+}
+.div_new_instructor{
+    margin-left: -3%;
+}
+.div_new_tag{
+    margin-left:9%;
+}
+.evaluation_btn{
+    font-size: small;
+    margin-right: 2%;
+    height: 40px;
+    background-color: rgb(255, 255, 255, 0.6);
+    border: none; /* <-- This thing here */
+    border: solid 2px #ccc;
+    border-radius: 10px;
 }

@@ -11,7 +11,7 @@ $(document).ready(function () {
         `
     )
 
-    const form  = document.getElementById('search_form');
+    const form  = document.getElementById('search_form_search');
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         var keyword = form.elements['search_keyword'].value
@@ -82,16 +82,11 @@ function display_search_res() {
 
 function display_each_course(course) {
     var new_row = $("<div></div>");
-    new_row.addClass("row pt-2");
+    new_row.addClass("row row_search_res pt-2 ml-2");
     
     //div for Course number and name
     var new_num_and_course = $("<div></div>");
-    new_num_and_course.addClass("col-md-3");
-
-    var new_course_number = $("<div></div>");
-    new_course_number.addClass("row");
-    new_course_number.html(course.Number);
-    new_num_and_course.append(new_course_number);
+    new_num_and_course.addClass("col-md-2 div_num_and_course");
 
     var new_course_name = $("<div></div>");
     new_course_name.addClass("row");
@@ -99,9 +94,14 @@ function display_each_course(course) {
     new_num_and_course.append(new_course_name);
     new_row.append(new_num_and_course);
 
+    var new_course_number = $("<div></div>");
+    new_course_number.addClass("row");
+    new_course_number.html(course.Number);
+    new_num_and_course.append(new_course_number);
+
     //div for loc & time
     var new_loc_and_time = $("<div></div>");
-    new_loc_and_time.addClass("col-md-3");
+    new_loc_and_time.addClass("col-md-3 ml-4");
     
     var new_location = $("<div></div>");
     new_location.addClass("row");
@@ -116,18 +116,18 @@ function display_each_course(course) {
 
     //div for instructor
     var new_instructor = $("<div></div>");
-    new_instructor.addClass("col-md-2");
+    new_instructor.addClass("col-md-2 div_new_instructor");
     new_instructor.html(course.Instructor);
     new_row.append(new_instructor);
 
     //div for tag
     var new_tag = $("<div></div>");
-    new_tag.addClass("col-md-2");
+    new_tag.addClass("col-md-2 div_new_tag");
     new_tag.html(course.Tag);
     new_row.append(new_tag);
 
     let new_load_btn = $("<button></button>");
-    new_load_btn.addClass("col-md-2 btn evaluation_btn");
+    new_load_btn.addClass("col-md-1 btn evaluation_btn ml-5");
     let id = course.Number.slice(0, 8);
     let instructor = course.Instructor;
     let course_name = course.Course;
