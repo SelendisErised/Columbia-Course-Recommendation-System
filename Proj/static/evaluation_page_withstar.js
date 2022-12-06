@@ -11,28 +11,28 @@ $(document).ready(function () {
         `
     )
 
-    const form  = document.getElementById('search_form');
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        var keyword = form.elements['search_keyword'].value
-
-        console.log(keyword)
-
-        window.location.href = `../evaluation_page/` + keyword
-        // $.ajax({
-        //     type: "POST",
-        //     url: "../search",
-        //     contentType: "application/json; charset=utf-8",
-        //     data: JSON.stringify(keyword),
-        //     success: function () {
-        //         console.log("submitted")
-        //         window.location.href = `../search_page/` + keyword
-        //     },
-        //     error: function(jq,status,message) {
-        //         alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
-        //     }
-        // });
-    });
+    // const form  = document.getElementById('search_form');
+    // form.addEventListener('submit', (event) => {
+    //     event.preventDefault();
+    //     var keyword = form.elements['search_keyword'].value
+    //
+    //     console.log(keyword)
+    //
+    //     window.location.href = `../evaluation_page/` + keyword
+    //     // $.ajax({
+    //     //     type: "POST",
+    //     //     url: "../search",
+    //     //     contentType: "application/json; charset=utf-8",
+    //     //     data: JSON.stringify(keyword),
+    //     //     success: function () {
+    //     //         console.log("submitted")
+    //     //         window.location.href = `../search_page/` + keyword
+    //     //     },
+    //     //     error: function(jq,status,message) {
+    //     //         alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);
+    //     //     }
+    //     // });
+    // });
 
 
     // $('#search_res').append(
@@ -50,26 +50,6 @@ $(document).ready(function () {
     display_search_res();
 })
 
-
-function display_search_res() {
-    $("#search_res").empty();
-
-    $.each(data, function(index, value) {
-        let new_row = display_each_course(value);
-        $("#search_res").append(new_row);
-        console.log(value)
-    });
-
-    // //delete button function
-    // $(".delete_btn").click(function() {
-    
-    //     delete_sale($(this).attr("id"));
-    //     display_sales_list();
-
-    // });
-    // console.log(sales)
-}
-
 function show_star(grade){
     var star = 0, half = 0, no_star = 0;
     grade = parseFloat(grade);
@@ -86,72 +66,97 @@ function show_star(grade){
 
     for(var i=0; i< star; i++){
             html += '<img src="' + star_img + '"/>';
+            html += ' '
         }
     if (half == 1){
             html += '<img src="' + half_img + '"/>';
+            html += ' '
         }
     for(var j=0; j < no_star; j++){
             html += '<img src="' + no_star_img + '"/>';
+            html += ' '
         }
     return html;
 }
 
-function display_each_course(course) {
-    var new_row = $("<div></div>");
-    new_row.addClass("row pt-2");
+function display_search_res() {
+    $("#search_res").empty();
 
-    //div for Course number and name
-    var new_num_and_course = $("<div></div>");
-    new_num_and_course.addClass("col-md-3");
+    $.each(data, function(index, value) {
+        var course_name = $("<h1></h1>");
+        course_name.addClass("row pt-2");
+        var name = $("<h1></h1>");
+        name.addClass("col");
+        name.html(value.Course);
+        course_name.append(name);
+        $("#search_res").append(course_name);
 
-    var new_course_number = $("<div></div>");
-    new_course_number.addClass("row");
-    new_course_number.html(course.Number);
-    new_num_and_course.append(new_course_number);
+        var number_and_instructor = $("<h2></h2>");
+        number_and_instructor.addClass("row pt-2");
 
-    var new_course_name = $("<div></div>");
-    new_course_name.addClass("row");
-    new_course_name.html(course.Course);
-    new_num_and_course.append(new_course_name);
-    new_row.append(new_num_and_course);
+        var number = $("<h2></h2>");
+        number.addClass("col-md-3");
+        number.html(value.Number);
+        number_and_instructor.append(number);
 
-    //div for Instructor
-    var new_instructor = $("<div></div>");
-    new_instructor.addClass("col-md-2");
-    new_instructor.html(course.Instructor);
-    new_row.append(new_instructor);
+        var instructor = $("<h2></h2>");
+        instructor.addClass("col-md-4");
+        instructor.html(value.Instructor);
+        number_and_instructor.append(instructor);
+        $("#search_res").append(number_and_instructor);
 
-    //div for Workload
-    var new_workload = $("<div></div>");
-    new_workload.addClass("col-md-2");
-    new_workload.html(show_star(course.Workload));
-    new_row.append(new_workload);
+        var workload = $("<h4></h4>");
+        workload.addClass("row pt-4");
 
-    //div for Accessibility
-    var new_accessibility = $("<div></div>");
-    new_accessibility.addClass("col-md-2");
-    new_accessibility.html(show_star(course.Accessibility));
-    new_row.append(new_accessibility);
+        var workload_title = $("<h4 style=\"font-weight: normal\">Workload</h4>");
+        workload_title.addClass("col-md-4");
+        workload.append(workload_title);
 
-    //div for Delivery
-    var new_delivery = $("<div></div>");
-    new_delivery.addClass("col-md-2");
-    new_delivery.html(show_star(course.Delivery));
-    new_row.append(new_delivery);
+        var workload_star = $("<h4></h4>");
+        workload_star.addClass("col-md-3");
+        workload_star.html(show_star(value.Workload));
+        workload.append(workload_star);
+        $("#search_res").append(workload);
 
-    //div for Difficulty
-    var new_difficulty = $("<div></div>");
-    new_difficulty.addClass("col-md-1.5");
-    new_difficulty.html(show_star(course.Difficulty));
-    new_row.append(new_difficulty);
+        var accessibility = $("<h4></h4>");
+        accessibility.addClass("row pt-4");
 
+        var accessibility_title = $("<h4 style=\"font-weight: normal\">Accessibility</h4>");
+        accessibility_title.addClass("col-md-4");
+        accessibility.append(accessibility_title);
 
-    // var delete_button = $("<button></button>");
-    // delete_button.addClass("col-md-1 btn delete_btn");
-    // delete_button.prop("id", log.id);
-    // console.log("button id(real index): "+ log.id);
-    // delete_button.html("X");
-    // new_row.append(delete_button);
+        var accessibility_star = $("<h4></h4>");
+        accessibility_star.addClass("col-md-3");
+        accessibility_star.html(show_star(value.Accessibility));
+        accessibility.append(accessibility_star);
+        $("#search_res").append(accessibility);
 
-    return new_row;
+        var delivery = $("<h4></h4>");
+        delivery.addClass("row pt-4");
+
+        var delivery_title = $("<h4 style=\"font-weight: normal\">Delivery</h4>");
+        delivery_title.addClass("col-md-4");
+        delivery.append(delivery_title);
+
+        var delivery_star = $("<h4></h4>");
+        delivery_star.addClass("col-md-3");
+        delivery_star.html(show_star(value.Delivery));
+        delivery.append(delivery_star);
+        $("#search_res").append(delivery);
+
+        var difficulty = $("<h4></h4>");
+        difficulty.addClass("row pt-4");
+
+        var difficulty_title = $("<h4 style=\"font-weight: normal\">Difficulty</h4>");
+        difficulty_title.addClass("col-md-4");
+        difficulty.append(difficulty_title);
+
+        var difficulty_star = $("<h4></h4>");
+        difficulty_star.addClass("col-md-3");
+        difficulty_star.html(show_star(value.Difficulty));
+        difficulty.append(difficulty_star);
+        $("#search_res").append(difficulty);
+
+        console.log(value)
+    });
 }
