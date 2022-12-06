@@ -100,11 +100,20 @@ function display_each_course(course) {
     var new_row = $("<div></div>");
     new_row.addClass("row pt-2");
 
-    //div for Course
-    var new_Course = $("<div></div>");
-    new_Course.addClass("col-md-2");
-    new_Course.html(course.Course);
-    new_row.append(new_Course);
+    //div for Course number and name
+    var new_num_and_course = $("<div></div>");
+    new_num_and_course.addClass("col-md-3");
+
+    var new_course_number = $("<div></div>");
+    new_course_number.addClass("row");
+    new_course_number.html(course.Number);
+    new_num_and_course.append(new_course_number);
+
+    var new_course_name = $("<div></div>");
+    new_course_name.addClass("row");
+    new_course_name.html(course.Course);
+    new_num_and_course.append(new_course_name);
+    new_row.append(new_num_and_course);
 
     //div for Instructor
     var new_instructor = $("<div></div>");
