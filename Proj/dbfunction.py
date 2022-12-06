@@ -181,9 +181,10 @@ class EvaluationFunction(Tools):
         self.db_cursor = cur
 
     def evaluate(self, search_key, new_evaluation):
-        course, instructor = search_key[0:8], search_key[8:]
-        mysql = "select * from {0}.{1} where Course like '%{2}%' and Instructor1Name like '%{3}%'".format(
-            self.database_name, 'course_evaluation', course, instructor)
+        keys = search_key.split('&')
+        number, instructor, name = keys[0], keys[1], keys[2]
+        mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' Instructor1Name like '%{4}%'".format(
+            self.database_name, 'course_evaluation', number, name, instructor)
         self.db_cursor.execute(mysql)
         course_info = self.db_cursor.fetchall()
 
@@ -195,9 +196,9 @@ class EvaluationFunction(Tools):
             new_course.append(f(course_info[0][i+2], new_evaluation[i]))
         new_course.append(cnt + 1)
 
-        mysql = "update {0}.{1} set Workload='{2}', Accessibility='{3}', Delivery='{4}', Difficulty='{5}', Cnt='{6}' where Course like '%{7}%' and Instructor1Name like '%{8}%'".format(
+        mysql = "update {0}.{1} set Workload='{2}', Accessibility='{3}', Delivery='{4}', Difficulty='{5}', Cnt='{6}' where Course='%{7}%' and CourseSubtitle='%{8}%' and Instructor1Name='%{9}%'".format(
             self.database_name, 'course_evaluation', new_course[0], new_course[1],
-            new_course[2], new_course[3], new_course[4], course, instructor)
+            new_course[2], new_course[3], new_course[4], number, name, instructor)
         self.db_cursor.execute(mysql)
 
     def evaluation_search(self, search_key):
@@ -208,17 +209,19 @@ class EvaluationFunction(Tools):
         return_type:
                 json_out: a json format file which is the returned data
         """
-        course, instructor = search_key[0:8], search_key[8:]
-        mysql = "select * from {0}.{1} where Course like '%{2}%' and Instructor1Name like '%{3}%'".format(
-            self.database_name, 'course_evaluation', course, instructor)
+        keys = search_key.split('&')
+        number, instructor, name = keys[0], keys[1], keys[2]
+        mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
+            self.database_name, 'course_evaluation', number, name, instructor)
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
-        json_out = json.dumps([{'Course': course[0],
-                        'Instructor': str.title(course[1]) if course[1] else None,
-                        'Workload': course[2],
-                        'Accessibility': course[3],
-                        'Delivery': course[4],
-                        'Difficulty': course[5]} for course in query_output])
+        json_out = json.dumps([{'Course': course[1],
+                                'Number': str(course[0]),
+                                'Instructor': str.title(course[2]) if course[2] else None,
+                                'Workload': course[3],
+                                'Accessibility': course[4],
+                                'Delivery': course[5],
+                                'Difficulty': course[6]} for course in query_output])
 
         json_out = json.loads(json_out)
 
