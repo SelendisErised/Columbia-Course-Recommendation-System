@@ -78,9 +78,9 @@ function rating() {
             url: "../rating",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(json_arg),
-            complete: function () {
-                window.location.href = '../evaluation_page/' + search_key;
-            },
+            // complete: function () {
+            //     window.location.href = '../evaluation_page/' + search_key;
+            // },
             success: function () {
                         location.reload();
                     },
