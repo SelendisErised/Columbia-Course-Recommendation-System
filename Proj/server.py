@@ -9,7 +9,7 @@ from flask_oauth import OAuth
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'dbuserdbuser'
+database_user_password = 'Cyx980901-'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -239,13 +239,14 @@ def evaluation_page_null():
     query_output = [] # null input
     return render_template('evaluation_page.html', data = query_output)
 
-@app.route('/evaluation', methods=['POST','GET'])
-def evaluation():
-    json_data = request.get_json()
+@app.route('/rating', methods=['POST','GET'])
+def rating():
+    query = request.get_json()
+    search_key, evaluation = query['search_key'], query['evaluation']
     # TODO search_courses function:
-    # search_res = search_courses(json_data)
-    # search_res.append(json_data + " result" )
-    return redirect(url_for('evaluation_page', search_key = json_data))
+    search_engine = EvaluationFunction(default_scheme, cur)
+    search_engine.evaluate(search_key, evaluation)
+    return redirect('/evaluation_page/' + search_key)
 
 # submitted search keywords
 @app.route('/evaluation_page/<search_key>')
@@ -253,6 +254,12 @@ def evaluation_page(search_key):
     search_engine = EvaluationFunction(default_scheme, cur)
     json_out = search_engine.evaluation_search(search_key)
     return render_template('evaluation_page.html', data = json_out)
+
+@app.route('/rating_page/<search_key>')
+def rating_page(search_key):
+    search_engine = EvaluationFunction(default_scheme, cur)
+    json_out = search_engine.evaluation_search(search_key)
+    return render_template('rating_page.html', data = json_out)
 
 @app.route('/about_page')
 def about_page():

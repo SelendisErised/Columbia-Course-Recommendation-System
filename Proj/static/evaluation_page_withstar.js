@@ -1,3 +1,6 @@
+function redirect_rating(id, instructor, name) {
+    window.location.href = `../rating_page/` + id + '&' + instructor + '&' + name
+}
 
 $(document).ready(function () {
     $("#user_email_nav").html(sessionStorage.getItem('user_email'));
@@ -157,6 +160,25 @@ function display_search_res() {
         difficulty.append(difficulty_star);
         $("#search_res").append(difficulty);
 
-        console.log(value)
+        let new_load_btn = $("<button></button>");
+        new_load_btn.addClass("col-md-1 btn evaluation_btn ml-5");
+        let new_id = value.Number;
+        let new_instructor = value.Instructor;
+        let new_course_name = value.Course;
+        new_load_btn.attr('id', new_id);
+        new_load_btn.attr('instructor', new_instructor)
+        new_load_btn.attr('course_name', new_course_name);
+        console.log(new_id);
+        console.log(instructor);
+        console.log(course_name);
+        new_load_btn.html("Rating");
+        $("#search_res").append(new_load_btn);
+
+        console.log(value);
+    });
+
+    $(".evaluation_btn").click(function() {
+        console.log("eval btn clicked")
+        redirect_rating($(this).attr("id"), $(this).attr("instructor"), $(this).attr("course_name"));
     });
 }

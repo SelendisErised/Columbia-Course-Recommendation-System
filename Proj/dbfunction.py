@@ -183,23 +183,30 @@ class EvaluationFunction(Tools):
     def evaluate(self, search_key, new_evaluation):
         keys = search_key.split('&')
         number, instructor, name = keys[0], keys[1], keys[2]
-        mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' Instructor1Name like '%{4}%'".format(
+        mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
             self.database_name, 'course_evaluation', number, name, instructor)
         self.db_cursor.execute(mysql)
         course_info = self.db_cursor.fetchall()
+        print(course_info)
 
-        cnt = course_info[0][6]
+        cnt = course_info[0][7]
         new_course = []
         f = lambda ori, new: (ori * cnt + new) / (cnt + 1)
 
         for i in range(4):
-            new_course.append(f(course_info[0][i+2], new_evaluation[i]))
+            new_course.append(f(course_info[0][i+3], new_evaluation[i]))
         new_course.append(cnt + 1)
 
-        mysql = "update {0}.{1} set Workload='{2}', Accessibility='{3}', Delivery='{4}', Difficulty='{5}', Cnt='{6}' where Course='%{7}%' and CourseSubtitle='%{8}%' and Instructor1Name='%{9}%'".format(
+        mysql = "update {0}.{1} set Workload='{2}', Accessibility='{3}', Delivery='{4}', Difficulty='{5}', Cnt='{6}' where Course like '%{7}%' and CourseSubtitle like '%{8}%' and Instructor1Name like '%{9}%'".format(
             self.database_name, 'course_evaluation', new_course[0], new_course[1],
             new_course[2], new_course[3], new_course[4], number, name, instructor)
         self.db_cursor.execute(mysql)
+
+        mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
+            self.database_name, 'course_evaluation', number, name, instructor)
+        self.db_cursor.execute(mysql)
+        course_info = self.db_cursor.fetchall()
+        print(course_info)
 
     def evaluation_search(self, search_key):
         """
@@ -298,7 +305,7 @@ class CheckConstraint:
         # return number_of_level4000_course, number_of_level6000_course
 
 if __name__ == "__main__":
-    course_list = ['COMS4111FERGUSON, DONALD F']
+    course_list = ['COMS4111&FERGUSON, DONALD F&INTRODUCTION TO DATABASES']
     evaluation = [3, 4, 4, 3]
 
     host = 'localhost'
