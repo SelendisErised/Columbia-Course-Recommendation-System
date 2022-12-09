@@ -53,7 +53,7 @@ $(document).ready(function () {
 })
 
 function redirect_evaluation(id, instructor, name) {
-    window.location.href = `../evaluation_page/` + id + '&' + instructor + '&' + name
+    window.location.href = `../evaluation_page/` + id + '/' + instructor + '/' + name
 }
 
 function display_search_res() {

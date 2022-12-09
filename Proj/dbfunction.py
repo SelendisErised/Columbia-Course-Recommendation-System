@@ -176,20 +176,22 @@ class SearchFunction(Tools):
 
 
 class EvaluationFunction(Tools):
-    def __init__(self, default_scheme, cur):
+    def __init__(self, default_scheme, table_name, cur):
         self.database_name = default_scheme
+        self.table_name = table_name
         self.db_cursor = cur
 
-    def evaluate(self, search_key, new_evaluation):
-        keys = search_key.split('&')
-        number, instructor, name = keys[0], keys[1], keys[2]
-        mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
-            self.database_name, 'course_evaluation', number, name, instructor)
+    def evaluate(self, number, instructor, name, new_evaluation):
+        # print(search_key)
+        # keys = search_key.split('&') if '&' in search_key else search_key.split('%26')
+        # number, instructor, name = keys[0], keys[1], keys[2]
+        print(number, instructor, name)
+        mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(self.database_name, self.table_name, number, name, instructor)
         self.db_cursor.execute(mysql)
         course_info = self.db_cursor.fetchall()
-        print(course_info)
+        # print(course_info)
 
-        cnt = course_info[0][7]
+        cnt = course_info[0][7] # TODO: Error: IndexError: tuple index out of range (second submit)
         new_course = []
         f = lambda ori, new: (ori * cnt + new) / (cnt + 1)
 
@@ -206,9 +208,9 @@ class EvaluationFunction(Tools):
             self.database_name, 'course_evaluation', number, name, instructor)
         self.db_cursor.execute(mysql)
         course_info = self.db_cursor.fetchall()
-        print(course_info)
+        # print(course_info)
 
-    def evaluation_search(self, search_key):
+    def evaluation_search(self, number, instructor, name):
         """
         input_type:
                 search_key: the search key containing first 8 letter of course id
@@ -216,10 +218,12 @@ class EvaluationFunction(Tools):
         return_type:
                 json_out: a json format file which is the returned data
         """
-        keys = search_key.split('&')
-        number, instructor, name = keys[0], keys[1], keys[2]
+        # keys = search_key.split('&')
+        # number, instructor, name = keys[0], keys[1], keys[2]
+    
         mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
             self.database_name, 'course_evaluation', number, name, instructor)
+        # print(mysql)
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[1],
@@ -231,7 +235,6 @@ class EvaluationFunction(Tools):
                                 'Difficulty': course[6]} for course in query_output])
 
         json_out = json.loads(json_out)
-
         return json_out
 
 
@@ -304,21 +307,21 @@ class CheckConstraint:
         # return False if number_of_level4000_course > 5 or number_of_level6000_course < number_of_level4000_course else True
         # return number_of_level4000_course, number_of_level6000_course
 
-if __name__ == "__main__":
-    course_list = ['COMS4111&FERGUSON, DONALD F&INTRODUCTION TO DATABASES']
-    evaluation = [3, 4, 4, 3]
+# if __name__ == "__main__":
+#     course_list = ['COMS4111&FERGUSON, DONALD F&INTRODUCTION TO DATABASES']
+#     evaluation = [3, 4, 4, 3]
 
-    host = 'localhost'
-    database_user_id = 'root'
-    database_user_password = 'Cyx980901-'
-    default_scheme = '6156_project'
-    table_name = 'Course_info'
+#     host = 'localhost'
+#     database_user_id = 'root'
+#     database_user_password = 'Cyx980901-'
+#     default_scheme = '6156_project'
+#     table_name = 'Course_info'
 
-    db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
-    cur = db.connection()
+#     db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
+#     cur = db.connection()
 
-    evaluation_engine = EvaluationFunction(default_scheme, cur)
-    evaluation_engine.evaluate(course_list[0], evaluation)
+#     evaluation_engine = EvaluationFunction(default_scheme, cur)
+#     evaluation_engine.evaluate(course_list[0], evaluation)
 
 #     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
 #     # print(search_engine.ambiguous_search('6885'))

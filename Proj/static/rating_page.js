@@ -60,16 +60,29 @@ function display_search_res() {
 }
 
 function rating() {
-    var search_key = '';
+    // var search_key = '';
+    var number = '';
+    var instructor = '';
+    var name = '';
+
+
     $.each(data, function (index, value) {
-        search_key = value.Number + '&' + value.Instructor + '&' + value.Course;
+        // search_key = value.Number + '&' + value.Instructor + '&' + value.Course;
+        number = value.Number;
+        instructor = value.Instructor;
+        name = value.Course
+
     });
     let evaluation = submitRatings();
 
-    console.log(search_key);
+    console.log(number);
+    console.log(Instructor);
+    console.log(Course);
     console.log(evaluation);
     const json_arg = {
-        "search_key": search_key,
+        "number" : value.Number,
+        "instructor" : value.Instructor,
+        "name" : value.Course,
         "evaluation": evaluation
     }
 
@@ -83,6 +96,7 @@ function rating() {
             // },
             success: function () {
                         location.reload();
+                        // window.location.href = '../evaluation_page/' + search_key;
                     },
             error: function(jq,status,message) {
                 alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);

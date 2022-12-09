@@ -9,7 +9,7 @@ from flask_oauth import OAuth
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'Cyx980901-'
+database_user_password = 'hx687099'
 default_scheme = '6156_project'
 
 db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -187,6 +187,7 @@ def search():
 
 # submitted search keywords
 @app.route('/search_page/<search_key>')
+# @app.route('/search_page/<Number> + <>/<>')
 def search_page(search_key):
     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
     json_out = search_engine.ambiguous_search(search_key)
@@ -242,23 +243,26 @@ def evaluation_page_null():
 @app.route('/rating', methods=['POST','GET'])
 def rating():
     query = request.get_json()
-    search_key, evaluation = query['search_key'], query['evaluation']
+    # print(query)
+    number, instructor, name, evaluation = query['number'], query['instructor'], query['name'], query['evaluation']
+    # print(search_key)
     # TODO search_courses function:
-    search_engine = EvaluationFunction(default_scheme, cur)
-    search_engine.evaluate(search_key, evaluation)
-    return redirect('/evaluation_page/' + search_key)
+    search_engine = EvaluationFunction(default_scheme, 'course_evaluation', cur)
+    search_engine.evaluate(number, instructor, name, evaluation)
+    return redirect('../evaluation_page/' + number + '/' + instructor + '/'+ name)
 
 # submitted search keywords
-@app.route('/evaluation_page/<search_key>')
-def evaluation_page(search_key):
-    search_engine = EvaluationFunction(default_scheme, cur)
-    json_out = search_engine.evaluation_search(search_key)
+@app.route('/evaluation_page/<number>/<instructor>/<name>')
+def evaluation_page(number, instructor, name):
+    search_engine = EvaluationFunction(default_scheme, 'course_evaluation', cur)
+    json_out = search_engine.evaluation_search(number, instructor, name)
     return render_template('evaluation_page.html', data = json_out)
 
-@app.route('/rating_page/<search_key>')
-def rating_page(search_key):
-    search_engine = EvaluationFunction(default_scheme, cur)
-    json_out = search_engine.evaluation_search(search_key)
+@app.route('/rating_page/<number>/<instructor>/<name>')
+def rating_page(number, instructor, name):
+    # print(number, instructor, name)
+    search_engine = EvaluationFunction(default_scheme, 'course_evaluation', cur)
+    json_out = search_engine.evaluation_search(number, instructor, name)
     return render_template('rating_page.html', data = json_out)
 
 @app.route('/about_page')

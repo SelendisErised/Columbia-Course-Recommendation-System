@@ -1,5 +1,5 @@
 function redirect_rating(id, instructor, name) {
-    window.location.href = `../rating_page/` + id + '&' + instructor + '&' + name
+    window.location.href = `../rating_page/` + id + '/' + instructor + '/' + name
 }
 
 $(document).ready(function () {
