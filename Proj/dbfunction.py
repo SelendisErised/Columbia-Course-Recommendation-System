@@ -53,7 +53,7 @@ class DatabaseConnection:
         db = self.default_scheme,
         )
         cur = conn.cursor()
-        return cur
+        return cur, conn
 
 class SearchFunction(Tools):
     def __init__(self, default_scheme, table_name, cur):
@@ -176,9 +176,10 @@ class SearchFunction(Tools):
 
 
 class EvaluationFunction(Tools):
-    def __init__(self, default_scheme, cur):
+    def __init__(self, default_scheme, cur, conn):
         self.database_name = default_scheme
         self.db_cursor = cur
+        self.conn = conn
 
     def evaluate(self, search_key, new_evaluation):
         keys = search_key.split('&')
@@ -201,6 +202,7 @@ class EvaluationFunction(Tools):
             self.database_name, 'course_evaluation', new_course[0], new_course[1],
             new_course[2], new_course[3], new_course[4], number, name, instructor)
         self.db_cursor.execute(mysql)
+        self.conn.commit()
 
         mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
             self.database_name, 'course_evaluation', number, name, instructor)
@@ -220,6 +222,7 @@ class EvaluationFunction(Tools):
         number, instructor, name = keys[0], keys[1], keys[2]
         mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
             self.database_name, 'course_evaluation', number, name, instructor)
+        print(mysql)
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[1],

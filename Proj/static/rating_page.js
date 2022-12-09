@@ -82,7 +82,8 @@ function rating() {
             //     window.location.href = '../evaluation_page/' + search_key;
             // },
             success: function () {
-                        location.reload();
+                        // location.reload();
+                        location.href = '../evaluation_page/' + search_key;
                     },
             error: function(jq,status,message) {
                 alert('A jQuery error has occurred. Status: ' + status + ' - Message: ' + message);

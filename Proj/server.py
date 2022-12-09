@@ -9,11 +9,13 @@ from flask_oauth import OAuth
 
 host = 'localhost'
 database_user_id = 'root'
-database_user_password = 'Cyx980901-'
+database_user_password = 'hx687099'
 default_scheme = '6156_project'
 
-db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
-cur = db.connection()
+def create_cursor(host = host, database_user_id = database_user_id, database_user_password = database_user_password, default_scheme = default_scheme):
+    db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
+    cur, conn = db.connection()
+    return cur, conn
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Rivendell'
@@ -188,19 +190,23 @@ def search():
 # submitted search keywords
 @app.route('/search_page/<search_key>')
 def search_page(search_key):
+    cur, conn = create_cursor()
     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
     json_out = search_engine.ambiguous_search(search_key)
+    conn.close()
     return render_template('search_page.html', data = json_out)
 
 wish_list = []
 # submitted planner's search keywords and return qualified search res
 @app.route('/planner_page/<search_key>')
 def planner_search(search_key):
+    cur, conn = create_cursor()
     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
     json_out = search_engine.qualify_search(wish_list, search_key)
     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
     # query_output = [] # null input
     wish_list_info = search_engine.course_to_frontend_info(wish_list)
+    conn.close()
     return render_template('planner_page.html', data = json_out, wish_list = wish_list_info)
 
 # redirect to planner
@@ -210,9 +216,11 @@ def planner_page():
     # sql = search_engine.ambiguous_search(search_key)
     # cur.execute(sql)
     # query_output = cur.fetchall()
+    cur, conn = create_cursor()
     search_engine = SearchFunction(default_scheme, 'Course_info', cur)
     wish_list_info = search_engine.course_to_frontend_info(wish_list)
     query_output = [] # null input
+    conn.close()
     return render_template('planner_page.html', data = query_output, wish_list = wish_list_info)
 
 # add to wish list
@@ -241,24 +249,31 @@ def evaluation_page_null():
 
 @app.route('/rating', methods=['POST','GET'])
 def rating():
+    cur, conn = create_cursor()
     query = request.get_json()
     search_key, evaluation = query['search_key'], query['evaluation']
     # TODO search_courses function:
-    search_engine = EvaluationFunction(default_scheme, cur)
+    search_engine = EvaluationFunction(default_scheme, cur, conn)
     search_engine.evaluate(search_key, evaluation)
-    return redirect('/evaluation_page/' + search_key)
+
+    # return redirect('/evaluation_page/' + search_key)
+    return
 
 # submitted search keywords
 @app.route('/evaluation_page/<search_key>')
 def evaluation_page(search_key):
-    search_engine = EvaluationFunction(default_scheme, cur)
+    cur, conn = create_cursor()
+    search_engine = EvaluationFunction(default_scheme, cur, conn)
     json_out = search_engine.evaluation_search(search_key)
+
     return render_template('evaluation_page.html', data = json_out)
 
 @app.route('/rating_page/<search_key>')
 def rating_page(search_key):
-    search_engine = EvaluationFunction(default_scheme, cur)
+    cur, conn = create_cursor()
+    search_engine = EvaluationFunction(default_scheme, cur, conn)
     json_out = search_engine.evaluation_search(search_key)
+
     return render_template('rating_page.html', data = json_out)
 
 @app.route('/about_page')
