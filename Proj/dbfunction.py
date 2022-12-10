@@ -222,7 +222,6 @@ class EvaluationFunction(Tools):
         number, instructor, name = keys[0], keys[1], keys[2]
         mysql = "select * from {0}.{1} where Course like '%{2}%' and CourseSubtitle like '%{3}%' and Instructor1Name like '%{4}%'".format(
             self.database_name, 'course_evaluation', number, name, instructor)
-        print(mysql)
         self.db_cursor.execute(mysql)
         query_output = self.db_cursor.fetchall()
         json_out = json.dumps([{'Course': course[1],
