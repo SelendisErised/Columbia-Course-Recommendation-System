@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33c1cbbb-c0cc-4d47-898c-9460211c4fe8" name="Changes" comment="'Updates requirement check &amp; correct know db error'">
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/load_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Data/load_data.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/load_data_evaluation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Data/load_data_evaluation.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proj/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Proj/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -114,6 +109,7 @@
       <workItem from="1669995962775" duration="638000" />
       <workItem from="1670606856004" duration="122000" />
       <workItem from="1670687577483" duration="843000" />
+      <workItem from="1670688536550" duration="297000" />
     </task>
     <task id="LOCAL-00001" summary="'Updates requirement check &amp; correct know db error'">
       <created>1667249223125</created>
@@ -156,7 +152,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Columbia_Course_Recommendation_System$dbfunction.coverage" NAME="dbfunction Coverage Results" MODIFIED="1667490242825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
-    <SUITE FILE_PATH="coverage/server_py$server.coverage" NAME="server Coverage Results" MODIFIED="1669935736482" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
+    <SUITE FILE_PATH="coverage/server_py$server.coverage" NAME="server Coverage Results" MODIFIED="1670688831432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
     <SUITE FILE_PATH="coverage/server_py$dbfunction.coverage" NAME="dbfunction Coverage Results" MODIFIED="1669931767586" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Proj" />
   </component>
 </project>
