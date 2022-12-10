@@ -8,8 +8,8 @@ from dbfunction import DatabaseConnection, SearchFunction, EvaluationFunction
 from flask_oauth import OAuth
 
 host = 'localhost'
-database_user_id = 'root'
-database_user_password = 'hx687099'
+database_user_id = 'Jinxuan_Tang'
+database_user_password = 'Yky722104$'
 default_scheme = '6156_project'
 
 def create_cursor(host = host, database_user_id = database_user_id, database_user_password = database_user_password, default_scheme = default_scheme):

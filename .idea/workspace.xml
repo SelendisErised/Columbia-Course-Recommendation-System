@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33c1cbbb-c0cc-4d47-898c-9460211c4fe8" name="Changes" comment="'Updates requirement check &amp; correct know db error'">
+      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/data_all_raw.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Data/data_all_raw.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/load_data.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Data/load_data.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/load_data_evaluation.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Data/load_data_evaluation.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proj/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proj/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Proj/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +112,8 @@
       <workItem from="1669929431796" duration="4277000" />
       <workItem from="1669933758012" duration="2190000" />
       <workItem from="1669995962775" duration="638000" />
+      <workItem from="1670606856004" duration="122000" />
+      <workItem from="1670687577483" duration="843000" />
     </task>
     <task id="LOCAL-00001" summary="'Updates requirement check &amp; correct know db error'">
       <created>1667249223125</created>
