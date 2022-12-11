@@ -48,29 +48,36 @@ google = oauth.remote_app('google',
 # message = ''
 # users_repository = UsersRepository()
 
+# @app.route('/')
+# def welcome_page():
+#     access_token = session.get('access_token')
+#     if access_token is None:
+#         return redirect(url_for('login'))
+#     return render_template('welcome.html', data=session.get('resp_obj'))
+
+# @app.route('/login')
+# def login():
+#     callback=url_for('authorized', _external=True)
+#     return google.authorize(callback=callback)
+
+# @app.route(REDIRECT_URI)
+# @google.authorized_handler
+# def authorized(resp):
+#     access_token = resp['access_token']
+#     session['access_token'] = access_token, ''
+#     session['resp_obj'] = resp
+#     return redirect(url_for('welcome_page'))
+
+# @google.tokengetter
+# def get_access_token():
+#     return session.get('access_token')
+
 @app.route('/')
 def welcome_page():
     access_token = session.get('access_token')
     if access_token is None:
         return redirect(url_for('login'))
-    return render_template('welcome.html', data=session.get('resp_obj'))
-
-@app.route('/login')
-def login():
-    callback=url_for('authorized', _external=True)
-    return google.authorize(callback=callback)
-
-@app.route(REDIRECT_URI)
-@google.authorized_handler
-def authorized(resp):
-    access_token = resp['access_token']
-    session['access_token'] = access_token, ''
-    session['resp_obj'] = resp
-    return redirect(url_for('welcome_page'))
-
-@google.tokengetter
-def get_access_token():
-    return session.get('access_token')
+    return render_template('welcome.html')
 
 # Default Login 
 # @login_manager.user_loader
@@ -284,4 +291,8 @@ def about_page():
     return render_template('about.html', data=session.get('resp_obj'))
 
 if __name__ == '__main__':
+<<<<<<< Updated upstream
     app.run(debug = True)
+=======
+    app.run(debug = True, host='localhost', port=5011)
+>>>>>>> Stashed changes
