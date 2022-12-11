@@ -260,8 +260,7 @@ def rating():
     search_engine = EvaluationFunction(default_scheme, cur, conn)
     search_engine.evaluate(search_key, evaluation)
 
-    # return redirect('/evaluation_page/' + search_key)
-    return
+    return redirect('/evaluation_page/' + search_key)
 
 # submitted search keywords
 @app.route('/evaluation_page/<search_key>')
