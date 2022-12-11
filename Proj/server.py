@@ -7,10 +7,10 @@ from dbfunction import DatabaseConnection, SearchFunction, EvaluationFunction
 # from flask_openid import OpenID
 from flask_oauth import OAuth
 
-host = 'localhost'
-database_user_id = 'root'
-database_user_password = 'hx687099'
-default_scheme = '6156_project'
+host = 'lioncoursedatabase.c5zzynku9kw4.us-east-2.rds.amazonaws.com'
+database_user_id = 'LionCourseAdmin'
+database_user_password = 'Rivendell'
+default_scheme = '6156_Project'
 
 def create_cursor(host = host, database_user_id = database_user_id, database_user_password = database_user_password, default_scheme = default_scheme):
     db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
@@ -74,9 +74,6 @@ google = oauth.remote_app('google',
 
 @app.route('/')
 def welcome_page():
-    access_token = session.get('access_token')
-    if access_token is None:
-        return redirect(url_for('login'))
     return render_template('welcome.html')
 
 # Default Login 
@@ -291,8 +288,4 @@ def about_page():
     return render_template('about.html', data=session.get('resp_obj'))
 
 if __name__ == '__main__':
-<<<<<<< Updated upstream
-    app.run(debug = True)
-=======
-    app.run(debug = True, host='localhost', port=5011)
->>>>>>> Stashed changes
+    app.run(debug = True, host='0.0.0.0', port=5000)
