@@ -7,17 +7,10 @@ from dbfunction import DatabaseConnection, SearchFunction, EvaluationFunction
 # from flask_openid import OpenID
 from flask_oauth import OAuth
 
-<<<<<<< Updated upstream
-host = 'localhost'
-database_user_id = 'Jinxuan_Tang'
-database_user_password = 'Yky722104$'
-default_scheme = '6156_project'
-=======
 host = 'lioncoursedatabase.c5zzynku9kw4.us-east-2.rds.amazonaws.com'
 database_user_id = 'LionCourseAdmin'
 database_user_password = 'Rivendell'
 default_scheme = '6156_Project'
->>>>>>> Stashed changes
 
 def create_cursor(host = host, database_user_id = database_user_id, database_user_password = database_user_password, default_scheme = default_scheme):
     db = DatabaseConnection(host, database_user_id, database_user_password, default_scheme)
