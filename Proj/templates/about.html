@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<script>
+    let data = {{data|tojson}}
+</script>
+<script  type="text/javascript" src="{{ url_for('static', filename = 'welcome.js') }}"> </script>
+<div class="log-in">
+    {{ message }}
+</div>
+<!-- <b id="welcome_div">Welcome to <span id="CPI_span">Columbia Course Recommendation</span> <br /> -->
+<div class="main-content">
+    <img class="welcome_logo" src="../static/images/web_about--2.png" style="object-fit: contain;"/>
+</div>
+
+
+
+
+
+{% endblock %}
