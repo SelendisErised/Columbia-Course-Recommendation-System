@@ -9,7 +9,7 @@ class SnsWrapper:
         """
         self.sns_resource = sns_resource
 
-    def subscribe(topic, protocol, endpoint):
+    def subscribe(self, topic, protocol, endpoint):
         """
         Subscribes an endpoint to the topic. Some endpoint types, such as email,
         must be confirmed before their subscriptions are active. When a subscription
