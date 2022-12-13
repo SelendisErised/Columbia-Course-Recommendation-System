@@ -220,6 +220,7 @@ if __name__ == '__main__':
     protocol = 'email'
     email = 'jt3302@columbia.edu'
     phone_number = '+19177423181'
+    phone_sub = None
 
     sns_wrapper = SnsWrapper(boto3.resource('sns'))
 
@@ -228,6 +229,9 @@ if __name__ == '__main__':
     topic = sns_wrapper.create_topic(topic_name)
 
     if phone_number != '':
+        print(f"Subscribing {phone_number} to {topic_name}. Phone numbers do not "
+              f"require confirmation.")
+        phone_sub = sns_wrapper.subscribe(topic, 'sms', phone_number)
         print(f"Sending an SMS message directly from SNS to {phone_number}.")
         sns_wrapper.publish_text_message(phone_number, 'Hello from the SNS demo!')
 
@@ -246,3 +250,31 @@ if __name__ == '__main__':
                 f"instructions in the email to confirm and receive SNS messages. "
                 f"Press Enter when confirmed or enter 's' to skip. ")
             email_sub.reload()
+
+    if phone_sub is not None:
+        mobile_key = 'mobile'
+        friendly = 'friendly'
+        print(f"Adding a filter policy to the {phone_number} subscription to send "
+              f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
+        sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
+        print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
+        sns_wrapper.publish_message(
+            topic, "Hello! This message is mobile friendly.", {mobile_key: friendly})
+        not_friendly = 'not-friendly'
+        print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
+        sns_wrapper.publish_message(
+            topic,
+            "Hey. This message is not mobile friendly, so you shouldn't get "
+            "it on your phone.",
+            {mobile_key: not_friendly})
+
+    print(f"Getting subscriptions to {topic_name}.")
+    topic_subs = sns_wrapper.list_subscriptions(topic)
+    for sub in topic_subs:
+        print(f"{sub.arn}")
+
+    print(f"Deleting subscriptions and {topic_name}.")
+    for sub in topic_subs:
+        if sub.arn != 'PendingConfirmation':
+            sns_wrapper.delete_subscription(sub)
+    sns_wrapper.delete_topic(topic)
