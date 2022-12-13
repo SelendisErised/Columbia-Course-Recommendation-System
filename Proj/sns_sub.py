@@ -264,8 +264,7 @@ if __name__ == '__main__':
         print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
         sns_wrapper.publish_message(
             topic,
-            "Hey. This message is not mobile friendly, so you shouldn't get "
-            "it on your phone.",
+            "Hey. THANK YOU SNS without lambda test clear :)",
             {mobile_key: not_friendly})
 
     print(f"Getting subscriptions to {topic_name}.")
