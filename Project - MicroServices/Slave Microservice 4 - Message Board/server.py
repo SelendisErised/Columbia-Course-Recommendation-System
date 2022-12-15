@@ -32,6 +32,20 @@ def get_all_message():
     json_out = json.loads(json_out)
     return json_out
 
+@app.route('/message/<tag>', methods=['GET'])
+def get_tag_message(tag):
+    cur, conn = create_cursor()
+    sql = "select * from {0}.message where tag='{1}'".format(default_scheme, tag)
+    cur.execute(sql)
+    query_output = cur.fetchall()
+    json_out = json.dumps([{'Email': message[0], 
+                            'Time': message[1], 
+                            'Content': message[2],
+                            'Tag': message[3]}
+                            for message in query_output])
+    json_out = json.loads(json_out)
+    return json_out
+
 @app.route('/message/<email>', methods=['GET', 'DELETE'])
 def get_my_message(email):
     if request.method == 'GET':
