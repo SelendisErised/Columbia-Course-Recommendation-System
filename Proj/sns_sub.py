@@ -6,6 +6,74 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+class SnsWrapper:
+    def __init__(self):
+        self.sns_resource = boto3.client('sns')
+        self.email = ''
+        self.email_seen = []
+        self.topic_arn = 'arn:aws:sns:us-east-1:494505086554:Course_System'
+
+    def subscribe(self, protocol, endpoint):
+        """
+        Subscribes an endpoint to the topic. Some endpoint types, such as email,
+        must be confirmed before their subscriptions are active. When a subscription
+        is not confirmed, its Amazon Resource Number (ARN) is set to
+        'PendingConfirmation'.
+        :param protocol: The protocol of the endpoint, such as 'sms' or 'email'.
+        :param endpoint: The endpoint that receives messages, such as a phone number
+                         (in E.164 format) for SMS messages, or an email address for
+                         email messages.
+        """
+        if protocol == 'email':
+            self.email = endpoint
+            if endpoint not in self.email_seen:
+                self.email_seen.append(endpoint)
+                self.sns_resource.subscribe(TopicArn=self.topic_arn,
+                                            Protocol='email',
+                                            Endpoint=endpoint,
+                                            ReturnSubscriptionArn=False)
+
+    def publish_msg(self, message):
+        """
+        Publishes a message to a topic.
+        :param message: The message to publish.
+        """
+        self.sns_resource.publish(TopicArn=self.topic_arn,
+                                  Message=message)
+
+    def list_topics(self):
+        """
+        Lists topics for the current account.
+        :return: An iterator that yields the topics.
+        """
+        try:
+            topics_iter = self.sns_resource.topics.all()
+            logger.info("Got topics.")
+        except ClientError:
+            logger.exception("Couldn't get topics.")
+            raise
+        else:
+            return topics_iter
+
+    def list_subscriptions(self, topic=None):
+        """
+        Lists subscriptions for the current account, optionally limited to a
+        specific topic.
+        :param topic: When specified, only subscriptions to this topic are returned.
+        :return: An iterator that yields the subscriptions.
+        """
+        try:
+            if topic is None:
+                subs_iter = self.sns_resource.subscriptions.all()
+            else:
+                subs_iter = topic.subscriptions.all()
+            logger.info("Got subscriptions.")
+        except ClientError:
+            logger.exception("Couldn't get subscriptions.")
+            raise
+        else:
+            return subs_iter
+
 
 # class SnsWrapper:
 #     """Encapsulates Amazon SNS topic and subscription functions."""
@@ -282,26 +350,6 @@ logger = logging.getLogger(__name__)
 #                 sns_wrapper.delete_subscription(sub)
 #         sns_wrapper.delete_topic(topic)
 
-class SnsWrapper:
-    def __init__(self):
-        self.sns_resource = boto3.client('sns')
-        self.email = ''
-        self.email_seen = []
-        self.topic_arn = 'arn:aws:sns:us-east-1:494505086554:Course_System'
-
-    def subscribe_email(self, email_address):
-        self.email = email_address
-        if email_address not in self.email_seen:
-            self.email_seen.append(email_address)
-            self.sns_resource.subscribe(TopicArn=self.topic_arn,
-                                        Protocol='email',
-                                        Endpoint=email_address,
-                                        ReturnSubscriptionArn=False)
-
-    def publish_msg(self, message):
-        self.sns_resource.publish(TopicArn=self.topic_arn,
-                                  Message=message)
-
 
 # def test_all():
 #     sns_wrapper = SnsWrapper(boto3.client('sns'))
@@ -327,6 +375,7 @@ if __name__ == '__main__':
     email_address = 'jt3302@columbia.edu'
     msg = "Hello! This message is used to test whether this function works."
     sns_wrapper = SnsWrapper()
-    sns_wrapper.subscribe_email(email_address)
+    sns_wrapper.subscribe('email', email_address)
     sns_wrapper.publish_msg(msg)
-    
+    sns_wrapper.list_subscriptions()
+
