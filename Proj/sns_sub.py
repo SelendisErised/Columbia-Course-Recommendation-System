@@ -219,7 +219,6 @@ class SnsWrapper:
         else:
             return message_id
 
-
 class Test_sns:
     def __init__(self):
         email = 'jt3302@columbia.edu'
@@ -282,6 +281,34 @@ class Test_sns:
             if sub.arn != 'PendingConfirmation':
                 sns_wrapper.delete_subscription(sub)
         sns_wrapper.delete_topic(topic)
+
+def test_all():
+    sns_wrapper = SnsWrapper(boto3.resource('sns'))
+    sns_wrapper.email_address = 'jt3302@columbia.edu'
+    sns_wrapper.phone_number = '+19177423181'
+    topic_arn = 'arn:aws:sns:us-east-1:494505086554:Course_System'
+#   add subscription
+    email_sub = sns_wrapper.sns_resource.subscribe(TopicArn=topic_arn,
+                                                   Protocol='email',
+                                                   Endpoint=sns_wrapper.email_address,
+                                                   ReturnSubscriptionArn=True)
+    phone_sub = sns_wrapper.sns_resource.subscribe(TopicArn=topic_arn,
+                                                   Protocol='sms',
+                                                   Endpoint=sns_wrapper.phone_number,
+                                                   ReturnSubscriptionArn=True)
+    # mobile_key = 'mobile'
+    # friendly = 'friendly'
+    # print(f"Adding a filter policy to the {sns_wrapper.phone_number} subscription to send "
+    #       f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
+    # sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
+    # print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
+    sns_wrapper.sns_resource.publis(TopicArn=topic_arn,
+                                    Message="Hello! This message is used to test whether this function works.")
+    # sns_wrapper.publish_message(
+    #     topic, "Hello! This message is used to test whether this function works.", {mobile_key: friendly})
+
+
+
 
 
 if __name__ == '__main__':
