@@ -14,6 +14,10 @@ class SnsWrapper:
         :param sns_resource: A Boto3 Amazon SNS resource.
         """
         self.sns_resource = sns_resource
+        self.email_address = ''
+        self.phone_number = ''
+        self.lambda_function = ''
+        self.message_content = ''
 
     def create_topic(self, name):
         """
@@ -216,63 +220,69 @@ class SnsWrapper:
             return message_id
 
 
+class Test_sns:
+    def __init__(self):
+        email = 'jt3302@columbia.edu'
+        phone_number = '+19177423181'
+        phone_sub = None
+
+        sns_wrapper = SnsWrapper(boto3.resource('sns'))
+        sns_wrapper.email_address = 'jt3302@columbia.edu'
+        sns_wrapper.phone_number = '+19177423181'
+
+        topic_name = f'Course_System-{time.time_ns()}'
+        print(f"Creating topic {topic_name}.")
+        topic = sns_wrapper.create_topic(topic_name)
+
+        if phone_number != '':
+            print(f"Subscribing {phone_number} to {topic_name}. Phone numbers do not "
+                  f"require confirmation.")
+            phone_sub = sns_wrapper.subscribe(topic, 'sms', phone_number)
+            print(f"Sending an SMS message directly from SNS to {phone_number}.")
+            sns_wrapper.publish_text_message(phone_number, 'Hello from the SNS demo!')
+
+        if sns_wrapper.email_address != '':
+            print(f"Subscribing {email}.")
+            email_sub = sns_wrapper.subscribe(topic, 'email', email)
+            # answer = input(
+            #     f"Confirmation email sent to {email}. To receive SNS messages, "
+            #     f"follow the instructions in the email. When confirmed, press "
+            #     f"Enter to continue.")
+            while (email_sub.attributes['PendingConfirmation'] == 'true'
+                   and answer.lower() != 's'):
+                answer = input(
+                    f"Email address {email} is not confirmed. Follow the "
+                    f"instructions in the email to confirm and receive SNS messages. "
+                    f"Press Enter when confirmed or enter 's' to skip. ")
+                email_sub.reload()
+
+        if phone_sub is not None:
+            mobile_key = 'mobile'
+            friendly = 'friendly'
+            print(f"Adding a filter policy to the {phone_number} subscription to send "
+                  f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
+            sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
+            print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
+            sns_wrapper.publish_message(
+                topic, "Hello! This message is used to test whether this function works.", {mobile_key: friendly})
+            not_friendly = 'not-friendly'
+            print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
+            sns_wrapper.publish_message(
+                topic,
+                "Hey. THANK YOU SNS without lambda test clear :)",
+                {mobile_key: not_friendly})
+
+        print(f"Getting subscriptions to {topic_name}.")
+        topic_subs = sns_wrapper.list_subscriptions(topic)
+        for sub in topic_subs:
+            print(f"{sub.arn}")
+
+        print(f"Deleting subscriptions and {topic_name}.")
+        for sub in topic_subs:
+            if sub.arn != 'PendingConfirmation':
+                sns_wrapper.delete_subscription(sub)
+        sns_wrapper.delete_topic(topic)
+
+
 if __name__ == '__main__':
-    protocol = 'email'
-    email = 'jt3302@columbia.edu'
-    phone_number = '+19177423181'
-    phone_sub = None
-
-    sns_wrapper = SnsWrapper(boto3.resource('sns'))
-
-    topic_name = f'Course_System-{time.time_ns()}'
-    print(f"Creating topic {topic_name}.")
-    topic = sns_wrapper.create_topic(topic_name)
-
-    if phone_number != '':
-        print(f"Subscribing {phone_number} to {topic_name}. Phone numbers do not "
-              f"require confirmation.")
-        phone_sub = sns_wrapper.subscribe(topic, 'sms', phone_number)
-        print(f"Sending an SMS message directly from SNS to {phone_number}.")
-        sns_wrapper.publish_text_message(phone_number, 'Hello from the SNS demo!')
-
-    if email != '':
-        print(f"Subscribing {email}.")
-        email_sub = sns_wrapper.subscribe(topic, 'email', email)
-        answer = input(
-            f"Confirmation email sent to {email}. To receive SNS messages, "
-            f"follow the instructions in the email. When confirmed, press "
-            f"Enter to continue.")
-        while (email_sub.attributes['PendingConfirmation'] == 'true'
-               and answer.lower() != 's'):
-            answer = input(
-                f"Email address {email} is not confirmed. Follow the "
-                f"instructions in the email to confirm and receive SNS messages. "
-                f"Press Enter when confirmed or enter 's' to skip. ")
-            email_sub.reload()
-
-    if phone_sub is not None:
-        mobile_key = 'mobile'
-        friendly = 'friendly'
-        print(f"Adding a filter policy to the {phone_number} subscription to send "
-              f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
-        sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
-        print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
-        sns_wrapper.publish_message(
-            topic, "Hello! This message is used to test whether this function works.", {mobile_key: friendly})
-        # not_friendly = 'not-friendly'
-        # print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
-        # sns_wrapper.publish_message(
-        #     topic,
-        #     "Hey. THANK YOU SNS without lambda test clear :)",
-        #     {mobile_key: not_friendly})
-
-    print(f"Getting subscriptions to {topic_name}.")
-    topic_subs = sns_wrapper.list_subscriptions(topic)
-    for sub in topic_subs:
-        print(f"{sub.arn}")
-
-    print(f"Deleting subscriptions and {topic_name}.")
-    for sub in topic_subs:
-        if sub.arn != 'PendingConfirmation':
-            sns_wrapper.delete_subscription(sub)
-    sns_wrapper.delete_topic(topic)
+    test_sns = Test_sns()
