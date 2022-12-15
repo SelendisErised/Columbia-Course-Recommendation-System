@@ -248,13 +248,13 @@ class Test_sns:
             #     f"Confirmation email sent to {email}. To receive SNS messages, "
             #     f"follow the instructions in the email. When confirmed, press "
             #     f"Enter to continue.")
-            while (email_sub.attributes['PendingConfirmation'] == 'true'
-                   and answer.lower() != 's'):
-                answer = input(
-                    f"Email address {email} is not confirmed. Follow the "
-                    f"instructions in the email to confirm and receive SNS messages. "
-                    f"Press Enter when confirmed or enter 's' to skip. ")
-                email_sub.reload()
+            # while (email_sub.attributes['PendingConfirmation'] == 'true'
+            #        and answer.lower() != 's'):
+            #     answer = input(
+            #         f"Email address {email} is not confirmed. Follow the "
+            #         f"instructions in the email to confirm and receive SNS messages. "
+            #         f"Press Enter when confirmed or enter 's' to skip. ")
+            #     email_sub.reload()
 
         if phone_sub is not None:
             mobile_key = 'mobile'
