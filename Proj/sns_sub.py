@@ -235,7 +235,6 @@ if __name__ == '__main__':
         print(f"Sending an SMS message directly from SNS to {phone_number}.")
         sns_wrapper.publish_text_message(phone_number, 'Hello from the SNS demo!')
 
-    # sns_wrapper.subscribe(topic_arn, protocol, endpoint)
     if email != '':
         print(f"Subscribing {email}.")
         email_sub = sns_wrapper.subscribe(topic, 'email', email)
@@ -259,13 +258,13 @@ if __name__ == '__main__':
         sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
         print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
         sns_wrapper.publish_message(
-            topic, "Hello! This message is mobile friendly.", {mobile_key: friendly})
-        not_friendly = 'not-friendly'
-        print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
-        sns_wrapper.publish_message(
-            topic,
-            "Hey. THANK YOU SNS without lambda test clear :)",
-            {mobile_key: not_friendly})
+            topic, "Hello! This message is used to test whether this function works.", {mobile_key: friendly})
+        # not_friendly = 'not-friendly'
+        # print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
+        # sns_wrapper.publish_message(
+        #     topic,
+        #     "Hey. THANK YOU SNS without lambda test clear :)",
+        #     {mobile_key: not_friendly})
 
     print(f"Getting subscriptions to {topic_name}.")
     topic_subs = sns_wrapper.list_subscriptions(topic)
