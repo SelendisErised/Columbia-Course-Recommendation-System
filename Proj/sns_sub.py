@@ -47,7 +47,7 @@ class SnsWrapper:
         :return: An iterator that yields the topics.
         """
         try:
-            topics_iter = self.sns_resource.topics.all()
+            topics_iter = self.sns_resource.list_topics()
             logger.info("Got topics.")
         except ClientError:
             logger.exception("Couldn't get topics.")
@@ -67,7 +67,7 @@ class SnsWrapper:
                 # subs_iter = self.sns_resource.subscriptions.all()
                 subs_iter = self.sns_resource.list_subscriptions()
             else:
-                subs_iter = topic.list_subscriptions()
+                subs_iter = self.sns_resource.list_subscriptions_by_topic(topic=topic)
             logger.info("Got subscriptions.")
         except ClientError:
             logger.exception("Couldn't get subscriptions.")
@@ -378,6 +378,6 @@ if __name__ == '__main__':
     sns_wrapper = SnsWrapper()
     sns_wrapper.subscribe('email', email_address)
     sns_wrapper.publish_msg(msg)
-    sub_iter = sns_wrapper.list_subscriptions()
+    sub_iter = sns_wrapper.list_subscriptions(sns_wrapper.topic_arn)
     print(sub_iter)
 
