@@ -283,7 +283,7 @@ class Test_sns:
         sns_wrapper.delete_topic(topic)
 
 def test_all():
-    sns_wrapper = SnsWrapper(boto3.resource('sns'))
+    sns_wrapper = SnsWrapper(boto3.client('sns'))
     sns_wrapper.email_address = 'jt3302@columbia.edu'
     sns_wrapper.phone_number = '+19177423181'
     topic_arn = 'arn:aws:sns:us-east-1:494505086554:Course_System'
@@ -302,7 +302,7 @@ def test_all():
     #       f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
     # sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
     # print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
-    sns_wrapper.sns_resource.publis(TopicArn=topic_arn,
+    sns_wrapper.sns_resource.publish(TopicArn=topic_arn,
                                     Message="Hello! This message is used to test whether this function works.")
     # sns_wrapper.publish_message(
     #     topic, "Hello! This message is used to test whether this function works.", {mobile_key: friendly})
