@@ -67,7 +67,7 @@ class SnsWrapper:
                 # subs_iter = self.sns_resource.subscriptions.all()
                 subs_iter = self.sns_resource.list_subscriptions()
             else:
-                subs_iter = self.sns_resource.list_subscriptions_by_topic(topic=topic)
+                subs_iter = self.sns_resource.list_subscriptions_by_topic(TopicArn=topic)
             logger.info("Got subscriptions.")
         except ClientError:
             logger.exception("Couldn't get subscriptions.")
