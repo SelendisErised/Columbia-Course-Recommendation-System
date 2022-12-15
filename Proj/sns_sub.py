@@ -252,15 +252,13 @@ if __name__ == '__main__':
 
     if phone_sub is not None:
         mobile_key = 'mobile'
-        # friendly = 'friendly'
-        # print(f"Adding a filter policy to the {phone_number} subscription to send "
-        #       f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
-        # sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
-        # print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
-        # sns_wrapper.publish_message(
-        #     topic, "Hello! This message is mobile friendly.", {mobile_key: friendly})
+        friendly = 'friendly'
+        print(f"Adding a filter policy to the {phone_number} subscription to send "
+              f"only messages with a '{mobile_key}' attribute of '{friendly}'.")
+        sns_wrapper.add_subscription_filter(phone_sub, {mobile_key: friendly})
+        print(f"Publishing a message with a {mobile_key}: {friendly} attribute.")
         sns_wrapper.publish_message(
-            topic, "Hello! This message is using to test whether this function works.")
+            topic, "Hello! This message is used to test whether this function works.", {mobile_key: friendly})
         # not_friendly = 'not-friendly'
         # print(f"Publishing a message with a {mobile_key}: {not_friendly} attribute.")
         # sns_wrapper.publish_message(
