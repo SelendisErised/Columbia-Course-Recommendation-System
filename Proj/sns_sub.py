@@ -24,7 +24,7 @@ class SnsWrapper:
         """
         if protocol == 'email':
             subs_iter = self.sns_resource.list_subscriptions_by_topic(TopicArn=self.topic_arn)
-            for sub in subs_iter:
+            for sub in subs_iter.Subscriptions:
                 if sub.SubscriptionArn == 'PendingConfirmation':
                     continue
                 if sub.Endpoint == endpoint:
