@@ -9,8 +9,6 @@ logger = logging.getLogger(__name__)
 class SnsWrapper:
     def __init__(self):
         self.sns_resource = boto3.client('sns')
-        self.email = ''
-        self.email_seen = []
         self.topic_arn = 'arn:aws:sns:us-east-1:494505086554:Course_System'
 
     def subscribe(self, protocol, endpoint):
@@ -25,13 +23,16 @@ class SnsWrapper:
                          email messages.
         """
         if protocol == 'email':
-            self.email = endpoint
-            if endpoint not in self.email_seen:
-                self.email_seen.append(endpoint)
-                self.sns_resource.subscribe(TopicArn=self.topic_arn,
-                                            Protocol='email',
-                                            Endpoint=endpoint,
-                                            ReturnSubscriptionArn=False)
+            subs_iter = self.sns_resource.list_subscriptions_by_topic(TopicArn=self.topic_arn)
+            for sub in subs_iter:
+                if sub['SubscriptionArn'] == 'PendingConfirmation':
+                    continue
+                if sub['Endpoint'] == endpoint:
+                    return
+            self.sns_resource.subscribe(TopicArn=self.topic_arn,
+                                        Protocol='email',
+                                        Endpoint=endpoint,
+                                        ReturnSubscriptionArn=False)
 
     def publish_msg(self, message):
         """
