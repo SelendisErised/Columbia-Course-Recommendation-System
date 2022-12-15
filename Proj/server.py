@@ -275,7 +275,6 @@ def rating_page(search_key):
 
     return render_template('rating_page.html', data = json_out)
 
-@app.route('/about_page')
 def about_page():
     access_token = session.get('access_token')
     if access_token is None:
