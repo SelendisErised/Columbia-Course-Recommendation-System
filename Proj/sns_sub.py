@@ -308,8 +308,5 @@ def test_all():
     #     topic, "Hello! This message is used to test whether this function works.", {mobile_key: friendly})
 
 
-
-
-
 if __name__ == '__main__':
-    test_sns = Test_sns()
+    test_all()
