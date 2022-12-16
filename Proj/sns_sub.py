@@ -1,7 +1,6 @@
 import json
 import logging
 import boto3
-import time
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -33,6 +32,7 @@ class SnsWrapper:
                                         Protocol='email',
                                         Endpoint=endpoint,
                                         ReturnSubscriptionArn=False)
+            logger.info("A new user has been added, please check his/her email and confirm the subscription")
 
     def publish_msg(self, message):
         """
@@ -41,6 +41,7 @@ class SnsWrapper:
         """
         self.sns_resource.publish(TopicArn=self.topic_arn,
                                   Message=message)
+        logger.info("The user should receive an email. The developers should get a slack message")
 
     def list_topics(self):
         """
@@ -82,6 +83,8 @@ if __name__ == '__main__':
     sns_wrapper = SnsWrapper()
     sns_wrapper.subscribe('email', email_address)
     sns_wrapper.publish_msg(msg)
-    sub_iter = sns_wrapper.list_subscriptions(sns_wrapper.topic_arn)
-    print(sns_wrapper.list_topics())
+    logger.info("The user should receive an email. The developers should get a slack message")
+    # sub_iter = sns_wrapper.list_subscriptions(sns_wrapper.topic_arn)
+    # print(sub_iter)
+    # print(sns_wrapper.list_topics())
 
