@@ -78,6 +78,7 @@ class SnsWrapper:
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     email_address = 'jt3302@columbia.edu'
     msg = "Hello! This message is used to test whether this function works."
     sns_wrapper = SnsWrapper()
