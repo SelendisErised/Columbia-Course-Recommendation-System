@@ -4,6 +4,7 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+
 class SnsWrapper:
     def __init__(self):
         self.sns_resource = boto3.client('sns')
@@ -88,4 +89,4 @@ if __name__ == '__main__':
     print(sub_iter)
     print('-' * 88)
     print(sns_wrapper.list_topics())
-
+    print('-' * 88)
