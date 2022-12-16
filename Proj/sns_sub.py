@@ -1,4 +1,3 @@
-import json
 import logging
 import boto3
 from botocore.exceptions import ClientError
@@ -80,12 +79,13 @@ class SnsWrapper:
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     email_address = 'jt3302@columbia.edu'
-    msg = "Hello! This message is used to test whether this function works."
+    msg = "Hello! This message is used to test whether this function works when testing sns alone."
     sns_wrapper = SnsWrapper()
     sns_wrapper.subscribe('email', email_address)
     sns_wrapper.publish_msg(msg)
-    logger.info("The user should receive an email. The developers should get a slack message")
-    # sub_iter = sns_wrapper.list_subscriptions(sns_wrapper.topic_arn)
-    # print(sub_iter)
-    # print(sns_wrapper.list_topics())
+    sub_iter = sns_wrapper.list_subscriptions(sns_wrapper.topic_arn)
+    print('-' * 88)
+    print(sub_iter)
+    print('-' * 88)
+    print(sns_wrapper.list_topics())
 
